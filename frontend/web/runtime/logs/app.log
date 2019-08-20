@@ -1,0 +1,67 @@
+2019-08-15 15:46:55 [10.201.1.99][1][hoj6ufl4cf7eivdco4e9tthqoo][error][yii\base\ViewNotFoundException] yii\base\ViewNotFoundException: The view file does not exist: /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/frontend/web/views/site/index.php in /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/View.php:233
+Stack trace:
+#0 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/View.php(156): yii\base\View->renderFile('/var/www/html/o...', Array, Object(frontend\controllers\SiteController))
+#1 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/Controller.php(384): yii\base\View->render('index', Array, Object(frontend\controllers\SiteController))
+#2 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/frontend/controllers/SiteController.php(77): yii\base\Controller->render('index')
+#3 [internal function]: frontend\controllers\SiteController->actionIndex()
+#4 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/InlineAction.php(57): call_user_func_array(Array, Array)
+#5 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/Controller.php(157): yii\base\InlineAction->runWithParams(Array)
+#6 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/Module.php(528): yii\base\Controller->runAction('', Array)
+#7 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/web/Application.php(103): yii\base\Module->runAction('', Array)
+#8 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/vendor/yiisoft/yii2/base/Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 /var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/frontend/web/index.php(17): yii\base\Application->run()
+#10 {main}
+2019-08-15 15:46:55 [10.201.1.99][1][hoj6ufl4cf7eivdco4e9tthqoo][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 10.201.1.99
+2019-08-15 15:46:55 [10.201.1.99][1][hoj6ufl4cf7eivdco4e9tthqoo][warning][yii\debug\Module::checkAccess] Access to debugger is denied due to IP address restriction. The requesting IP address is 10.201.1.99
+2019-08-15 15:46:55 [10.201.1.99][1][hoj6ufl4cf7eivdco4e9tthqoo][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'advanced-frontend' => 'hoj6ufl4cf7eivdco4e9tthqoo'
+    '_csrf-frontend' => 'aa28fa873b90b64e08f852eefd2b84a3203e7c678df75e8eff2aec7e6aeb2244a:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"F0Kt6CMMWEvAvQMLxS7ZS5UIHpelllSU\";}'
+    '_identity-frontend' => 'f3ccc0bba3d51f6d1e61a2cf6297f5219e57040f4e1ee4fd6e99ef9e20629ebca:2:{i:0;s:18:\"_identity-frontend\";i:1;s:46:\"[1,\"g6ZY8rhydazPgn97JWPWs7N74q13VMJe\",2592000]\";}'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+]
+
+$_SERVER = [
+    'HTTP_HOST' => 'onlinedocs.cloud1.vidimtech.com'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_COOKIE' => 'advanced-frontend=hoj6ufl4cf7eivdco4e9tthqoo; _csrf-frontend=aa28fa873b90b64e08f852eefd2b84a3203e7c678df75e8eff2aec7e6aeb2244a%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22F0Kt6CMMWEvAvQMLxS7ZS5UIHpelllSU%22%3B%7D; _identity-frontend=f3ccc0bba3d51f6d1e61a2cf6297f5219e57040f4e1ee4fd6e99ef9e20629ebca%3A2%3A%7Bi%3A0%3Bs%3A18%3A%22_identity-frontend%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22g6ZY8rhydazPgn97JWPWs7N74q13VMJe%22%2C2592000%5D%22%3B%7D'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at onlinedocs.cloud1.vidimtech.com Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'onlinedocs.cloud1.vidimtech.com'
+    'SERVER_ADDR' => '10.198.1.7'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '10.201.1.99'
+    'DOCUMENT_ROOT' => '/var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/frontend/web'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/frontend/web'
+    'SERVER_ADMIN' => 'hostmaster@vidimtech.com'
+    'SCRIPT_FILENAME' => '/var/www/html/onlinedocs.cloud1.vidimtech.com/public_html/onlinedocs/frontend/web/index.php'
+    'REMOTE_PORT' => '51798'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/'
+    'SCRIPT_NAME' => '/index.php'
+    'PHP_SELF' => '/index.php'
+    'REQUEST_TIME_FLOAT' => 1565884015.449
+    'REQUEST_TIME' => 1565884015
+]

@@ -8,6 +8,8 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+	'language' => 'ru-RU',
+	'timeZone' => 'Europe/Moscow',
 	'name' => 'VDTECH Online Documentation by Evgeniy Kiselevskiy',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -37,14 +39,27 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+				'/' => 'site/index',
+				'signup' => 'site/signup',
+				'login' => 'site/login',
+				'organization' => 'organization/index',
+				'organization/objects' => 'objects/index',
             ],
         ],
-        */
+		
+		'assetManager' => [
+             'basePath' => '@webroot/assets',
+             'baseUrl' => '@web/assets'
+        ],  
+        'request' => [
+            'baseUrl' => ''
+        ]
+        
     ],
 	'modules' => [
 		'gridview' => ['class' => 'kartik\grid\Module']

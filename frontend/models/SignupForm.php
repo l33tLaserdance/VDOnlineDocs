@@ -22,18 +22,18 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'required', 'message' => 'Поле должно быть заполнено'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Такой пользователь уже существует.'],
+            ['username', 'string', 'min' => 2, 'max' => 255, 'message' => 'Имя пользователя должно быть не менее 2 символов'],
 
             ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'required', 'message' => 'Поле должно быть заполнено.'],
+            ['email', 'email', 'message' => 'Введённое значение не является почтой.'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Данная почта уже зарегистрирована в системе.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'required', 'message' => 'Такой пользователь уже существует.'],
+            ['password', 'string', 'min' => 6, 'message' => 'Пароль должен сожержать не менее 6 и не более 15 символов'],
         ];
     }
 
@@ -53,9 +53,9 @@ class SignupForm extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->generateEmailVerificationToken();
-        return $user->save() && $this->sendEmail($user);
-
+        //$user->generateEmailVerificationToken();
+        return $user->save() ? $user : null;
+		//return $user->save() && $this->sendEmail($user);
     }
 
     /**
@@ -63,7 +63,7 @@ class SignupForm extends Model
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
+    /*protected function sendEmail($user)
     {
         return Yii::$app
             ->mailer
@@ -75,5 +75,5 @@ class SignupForm extends Model
             ->setTo($this->email)
             ->setSubject('Account registration at ' . Yii::$app->name)
             ->send();
-    }
+    }*/
 }

@@ -70,7 +70,7 @@ AppAsset::register($this);
 
     <div class="container">
         <?= Breadcrumbs::widget([
-			'homeLink' => ['label' => 'Главная', 'url' => '/frontend/web'],
+			'homeLink' => ['label' => 'Главная', 'url' => '/'],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
