@@ -25,12 +25,6 @@ class Organization extends \yii\db\ActiveRecord
     {
         return 'organization';
     }
-
-	public function getRespOrg()
-    {
-        return $this->hasMany(RespOrg::classname(), ['id' => 'id']);
-            //->viaTable('resp_org', ['resp_id' => 'resp_id']);
-    }
 	
     /**
      * {@inheritdoc}
@@ -39,7 +33,7 @@ class Organization extends \yii\db\ActiveRecord
     {
         return [
             [['Comment'], 'string'],
-            [['org_name', 'org_full_name', 'org_address'], 'string', 'max' => 100],
+            [['org_name', 'org_full_name', 'org_address', 'photo'], 'string', 'max' => 100],
             [['INN'], 'string', 'max' => 12],
         ];
     }
@@ -56,15 +50,16 @@ class Organization extends \yii\db\ActiveRecord
             'INN' => 'ИНН',
 			'org_address' => 'Адрес организации',
             'Comment' => 'Комментарий',
+			'photo' => 'Фотография',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getContacts()
+    public function getRespOrg()
     {
-        return $this->hasMany(Contacts::className(), ['org_id' => 'id']);
+        return $this->hasMany(RespOrg::className(), ['org_id' => 'id']);
     }
 
     /**

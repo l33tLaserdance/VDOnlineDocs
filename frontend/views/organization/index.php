@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить организацию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -55,10 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			'format'=>['html'], 'hAlign'=>'center', 'width'=>'200px'],
             ['attribute'=>'INN','format'=>['text'], 'hAlign'=>'center', 'width'=>'100px'],
 			['attribute'=>'org_address','format'=>['text'], 'hAlign'=>'center', 'width'=>'200px'],
-            ['attribute'=>'Comment','format'=>['ntext'], 'hAlign'=>'center'],
+            ['attribute'=>'Comment','format'=>['ntext'], 'hAlign'=>'center', 'width' => '330px'],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+		'options' => [
+			'style' => 'word-warp: break-word;'
+		],
     ]); ?>
 
 

@@ -31,19 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 	
-	<?php // пока не используется
+	<?php
 	$gridfortable = [
 		[
-			'class'=>'kartik\grid\EditableColumn',
 			'attribute'=>'FIO',
-			'editableOptions'=>[
-				'header' => 'ФИО',
-				//'name' => 'FIO',
-				'formOptions'=>['action' => ['/organization/editfio']],
-				'format' => \kartik\editable\Editable::FORMAT_BUTTON,
-				'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-				//'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000]]
-			],
+			'label' => 'ФИО',
 			'hAlign'=>'middle',
 			'vAlign'=>'middle',
 			'width'=>'100px',
@@ -51,16 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			'pageSummary'=>true
 		],
 		[
-			'class'=>'kartik\grid\EditableColumn',
 			'attribute'=>'Phone',
-			'editableOptions'=>[
-				'header' => 'телефон',
-				//'name' => 'Phone',
-				'formOptions'=>['action' => ['/organization/editfio']],
-				'format' => \kartik\editable\Editable::FORMAT_BUTTON,
-				'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-				//'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000]]
-			],
+			'label' => 'Телефон',
 			'hAlign'=>'middle',
 			'vAlign'=>'middle',
 			'width'=>'100px',
@@ -68,16 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			'pageSummary'=>true
 		],
 		[
-			'class'=>'kartik\grid\EditableColumn',
 			'attribute'=>'Email',
-			'editableOptions'=>[
-				'header' => 'email',
-				//'name' => 'Email',
-				'formOptions'=>['action' => ['/organization/editfio']],
-				'format' => \kartik\editable\Editable::FORMAT_BUTTON,
-				'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-				//'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000]]
-			],
+			'label' => 'Email',
 			'hAlign'=>'middle',
 			'vAlign'=>'middle',
 			'width'=>'100px',
@@ -85,17 +61,40 @@ $this->params['breadcrumbs'][] = $this->title;
 			'pageSummary'=>true
 		],
 		[
-			'class'=>'kartik\grid\EditableColumn',
 			'attribute'=>'Positon',
-			'editableOptions'=>[
-				'header' => 'должность',
-				//'name' => 'Positon',
-				'formOptions'=>['action' => ['/organization/editfio']],
-				'format' => \kartik\editable\Editable::FORMAT_BUTTON,
-				'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-				//'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000]]
-			],
+			'label' => 'Должность',
 			'hAlign'=>'middle',
+			'vAlign'=>'middle',
+			'width'=>'100px',
+			'format'=>['text'],
+			'pageSummary'=>true
+		],
+	];
+	?>
+	
+	<?php
+	$gridfortable2 = [
+		[
+			'attribute'=>'resp_FIO',
+			'label' => 'ФИО',
+			'hAlign'=>'middle',
+			'vAlign'=>'middle',
+			'width'=>'100px',
+			'format'=>['text'],
+			'pageSummary'=>true
+		],
+		[
+			'attribute'=>'resp_phone',
+			'label' => 'Контактный телефон',
+			'hAlign'=>'middle',
+			'vAlign'=>'middle',
+			'width'=>'100px',
+			'format'=>['text'],
+			'pageSummary'=>true
+		],
+		[
+			'attribute'=>'resp_email',
+			'label' => 'Email',
 			'vAlign'=>'middle',
 			'width'=>'100px',
 			'format'=>['text'],
@@ -152,6 +151,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'Comment:ntext',
         ],
     ]) ?>
+	
 	<div class="row">
 		<div class="col-lg-8">
 		<?= GridView::widget([
@@ -165,11 +165,40 @@ $this->params['breadcrumbs'][] = $this->title;
 			'bordered' => true,
 			'toolbar' => false,
 			'panel' => [
+				'layout' => '{items}\n{pager}',
 				'type' => GridView::TYPE_SUCCESS,
 				'heading' => 'Контактные лица:',
 				'footer' => false,
 			],
 		]); ?>
+		
+		<?= GridView::widget([
+			'dataProvider' => $dataProvider2,
+			//'filterModel' => $searchModel,
+			'columns' => $gridfortable2,
+			//'filterModel' => $searchModel,
+			'pjax' => true,
+			'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+			'filterRowOptions' => ['class' => 'kartik-sheet-style'],
+			'bordered' => true,
+			'toolbar' => false,
+			'panel' => [
+				'type' => GridView::TYPE_SUCCESS,
+				'heading' => 'Ответственные лица:',
+				'footer' => false,
+			],
+		]); ?>
+		
+		</div>
+		<div class="col-lg-4">
+			<img src="<?= $model->photo; ?>" style="max-width: 100%; max-height: 100%;">
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<label for="inputComment" class="control-label col-xs-2">Комментарий:</label>
+			<input name="Comment" type="text" class="form-control" style="cursor: context-menu; background-color: white;" id="inputComment" value="<?= $model->Comment; ?>" placeholder="Комментариев пока нет." disabled>
+		</div>
+	</div>
+	</div>	
 </div>

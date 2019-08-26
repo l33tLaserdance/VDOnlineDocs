@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 
@@ -8,9 +8,10 @@ use Yii;
  * This is the model class for table "resp_org".
  *
  * @property int $id
+ * @property int $org_id
  * @property int $resp_id
  *
- * @property Organization $id0
+ * @property Organization $org
  * @property Responsible $resp
  */
 class RespOrg extends \yii\db\ActiveRecord
@@ -29,8 +30,10 @@ class RespOrg extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'resp_id'], 'integer'],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['id' => 'id']],
+            [['id'], 'required'],
+            [['id', 'org_id', 'resp_id'], 'integer'],
+            [['id'], 'unique'],
+            [['org_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['org_id' => 'id']],
             [['resp_id'], 'exist', 'skipOnError' => true, 'targetClass' => Responsible::className(), 'targetAttribute' => ['resp_id' => 'resp_id']],
         ];
     }
@@ -41,7 +44,8 @@ class RespOrg extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'Org ID',
+            'id' => 'ID',
+            'org_id' => 'Org ID',
             'resp_id' => 'Resp ID',
         ];
     }
@@ -49,15 +53,15 @@ class RespOrg extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOrgId()
+    public function getOrg()
     {
-        return $this->hasOne(Organization::className(), ['id' => 'id']);
+        return $this->hasOne(Organization::className(), ['id' => 'org_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRespId()
+    public function getResp()
     {
         return $this->hasOne(Responsible::className(), ['resp_id' => 'resp_id']);
     }

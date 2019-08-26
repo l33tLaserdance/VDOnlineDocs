@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "28046a3d675a4f66e0697fe0b7a948be",
+    "content-hash": "ccd1581ef2800f8fd840184def67e70b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1272,16 +1272,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-datepicker",
-            "version": "v1.4.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-datepicker.git",
-                "reference": "aadeb08fe0199a62bb26940cdccafc2c169edc69"
+                "reference": "66035a0ed3f7a32f3e5f3d34700ca8bef8e8b95a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/aadeb08fe0199a62bb26940cdccafc2c169edc69",
-                "reference": "aadeb08fe0199a62bb26940cdccafc2c169edc69",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-datepicker/zipball/66035a0ed3f7a32f3e5f3d34700ca8bef8e8b95a",
+                "reference": "66035a0ed3f7a32f3e5f3d34700ca8bef8e8b95a",
                 "shasum": ""
             },
             "require": {
@@ -1322,7 +1322,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-10-09T11:34:49+00:00"
+            "time": "2019-05-25T07:31:37+00:00"
         },
         {
             "name": "kartik-v/yii2-widget-datetimepicker",
@@ -6156,7 +6156,8 @@
         "kartik-v/yii2-detail-view": 20,
         "kartik-v/yii2-editable": 20,
         "kartik-v/yii2-widget-colorinput": 20,
-        "kartik-v/yii2-widgets": 20
+        "kartik-v/yii2-widgets": 20,
+        "kartik-v/yii2-widget-datepicker": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

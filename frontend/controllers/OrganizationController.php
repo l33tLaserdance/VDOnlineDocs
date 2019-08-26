@@ -107,14 +107,13 @@ class OrganizationController extends Controller
 		}
 		print_r($resp);*/
 		
-		$cont = (new Query())
+		/*$cont = (new Query())
 			->select(['FIO', 'Phone', 'Email', 'Positon'])
 			->from(['Contacts'])
 			->where(['org_id' => $id])
 			->all();
-		print_r($cont);
 		
-		/*$dataProvider = new ArrayDataProvider([
+		$dataProvider = new ArrayDataProvider([
             'allModels' => $cont,
             'sort'=> [
                 'attributes' => ['FIO', 'Phone', 'Email', 'Positon'],
@@ -122,10 +121,26 @@ class OrganizationController extends Controller
             ]
         ]);*/
 		
+		$resp = (new Query())
+			->select(['resp_FIO', 'resp_phone', 'resp_email'])
+			->from(['responsible r', 'resp_org ro'])
+			->where('r.resp_id=ro.resp_id')
+			->andWhere('org_id='.$id)
+			->all();
+		
+		$dataProvider2 = new ArrayDataProvider([
+            'allModels' => $resp,
+            'sort'=> [
+                'attributes' => ['resp_FIO', 'resp_phone', 'resp_email'],
+                'defaultOrder' => ['resp_FIO' => SORT_ASC],
+            ]
+        ]);
+		
         return $this->render('view', [
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'dataProvider2' => $dataProvider2,
         ]);
     }
 

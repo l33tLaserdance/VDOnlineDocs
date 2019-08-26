@@ -49,6 +49,7 @@ return [
 				'login' => 'site/login',
 				'organization' => 'organization/index',
 				'organization/objects' => 'objects/index',
+				'organization/objects/cases' => 'cases/index'
             ],
         ],
 		

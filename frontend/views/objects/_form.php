@@ -17,7 +17,7 @@ use frontend\models\Objects;
 										'maxlength' => true,
 										//'disabled' => true,
 										'label' => false,
-										'value' => $_GET['id'],
+										'value' => $model->org_id,
 	
 	])->label(false) ?>
 

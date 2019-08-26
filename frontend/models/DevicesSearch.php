@@ -4,12 +4,12 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Organization;
+use frontend\models\Devices;
 
 /**
- * OrgnizationSearch represents the model behind the search form of `frontend\models\Organization`.
+ * DevicesSearch represents the model behind the search form of `frontend\models\Devices`.
  */
-class OrgnizationSearch extends Organization
+class DevicesSearch extends Devices
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class OrgnizationSearch extends Organization
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['org_name', 'org_full_name', 'INN', 'org_address', 'Comment', 'photo'], 'safe'],
+            [['device_id', 'case_id', 'port'], 'integer'],
+            [['device_type', 'device_name', 'device_link', 'Comment'], 'safe'],
         ];
     }
 
@@ -40,10 +40,13 @@ class OrgnizationSearch extends Organization
      */
     public function search($params)
     {
-        $query = Organization::find();
+        $query = Devices::find();
 
         // add conditions that should always apply here
-
+		$id = $_GET['id'];
+		
+		$query = Devices::find()->where(['case_id' => $id]);
+		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -58,15 +61,15 @@ class OrgnizationSearch extends Organization
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'device_id' => $this->device_id,
+            'case_id' => $this->case_id,
+            'port' => $this->port,
         ]);
 
-        $query->andFilterWhere(['like', 'org_name', $this->org_name])
-            ->andFilterWhere(['like', 'org_full_name', $this->org_full_name])
-            ->andFilterWhere(['like', 'INN', $this->INN])
-			->andFilterWhere(['like', 'org_address', $this->org_address])
-            ->andFilterWhere(['like', 'Comment', $this->Comment])
-			->andFilterWhere(['like', 'photo', $this->photo]);
+        $query->andFilterWhere(['like', 'device_type', $this->device_type])
+            ->andFilterWhere(['like', 'device_name', $this->device_name])
+            ->andFilterWhere(['like', 'device_link', $this->device_link])
+            ->andFilterWhere(['like', 'Comment', $this->Comment]);
 
         return $dataProvider;
     }

@@ -18,7 +18,7 @@ class ObjectsSearch extends Objects
     {
         return [
             [['obj_id', 'org_id'], 'integer'],
-            [['address', 'obj_name', 'Comment'], 'safe'],
+            [['address', 'obj_name', 'Comment', 'photo', 'map'], 'safe'],
         ];
     }
 
@@ -43,6 +43,10 @@ class ObjectsSearch extends Objects
         $query = Objects::find();
 
         // add conditions that should always apply here
+
+		$id = $_GET['id'];
+		
+		$query = Objects::find()->where(['org_id' => $id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -70,7 +74,9 @@ class ObjectsSearch extends Objects
 
         $query->andFilterWhere(['like', 'address', $this->address])
             ->andFilterWhere(['like', 'obj_name', $this->obj_name])
-            ->andFilterWhere(['like', 'Comment', $this->Comment]);
+            ->andFilterWhere(['like', 'Comment', $this->Comment])
+			->andFilterWhere(['like', 'photo', $this->photo])
+			->andFilterWhere(['like', 'map', $this->map]);
 
         return $dataProvider;
     }

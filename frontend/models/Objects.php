@@ -34,7 +34,7 @@ class Objects extends \yii\db\ActiveRecord
         return [
             [['org_id'], 'integer'],
             [['Comment'], 'string'],
-            [['address', 'obj_name'], 'string', 'max' => 100],
+            [['address', 'obj_name', 'photo', 'map'], 'string', 'max' => 100],
             [['org_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['org_id' => 'id']],
         ];
     }
@@ -47,9 +47,11 @@ class Objects extends \yii\db\ActiveRecord
         return [
             'obj_id' => '№',
             'org_id' => 'Организация',
-            'address' => 'Адрес (ссылка на адрес)',
-            'obj_name' => 'Название объекта (ссылка на шкафы)',
+            'address' => 'Адрес',
+            'obj_name' => 'Название объекта',
             'Comment' => 'Комментарий',
+			'photo' => 'Фотография',
+			'map' => 'Карта',
         ];
     }
 
