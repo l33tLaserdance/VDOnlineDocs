@@ -43,6 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
 		'pjax' => true,
 		'id' => 'org_table',
+		'formatter' => [
+			'class' => 'yii\i18n\Formatter',
+			'nullDisplay' => ''
+		],
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
@@ -57,7 +61,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			['attribute'=>'org_address','format'=>['text'], 'hAlign'=>'center', 'width'=>'200px'],
             ['attribute'=>'Comment','format'=>['ntext'], 'hAlign'=>'center', 'width' => '330px'],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+				'visibleButtons' => [
+					'delete' => false,
+				],
+			],
         ],
 		'options' => [
 			'style' => 'word-warp: break-word;'

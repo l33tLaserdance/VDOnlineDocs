@@ -15,6 +15,8 @@ use yii\helpers\Json;
 use kartik\grid\EditableColumnAction;
 use yii\db\Query;
 use yii\data\ArrayDataProvider;
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 
 /**
  * OrganizationController implements the CRUD actions for Organization model.
@@ -77,10 +79,6 @@ class OrganizationController extends Controller
     {
         $searchModel = new OrgnizationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		
-		if (isset($_SESSION)) {
-			unset($_SESSION);
-		}
 		
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -154,6 +152,16 @@ class OrganizationController extends Controller
         $model = new Organization();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (UploadedFile::getInstance($model, 'file') != null) {	
+				$imageName = $model->id;
+				$model->file = UploadedFile::getInstance($model, 'file');
+				FileHelper::createDirectory('uploads/'.$model->id.'/', 0777);
+				$model->file->saveAs('uploads/'.$model->id.'/'.$imageName.'.'.$model->file->extension);
+				
+				$model->photo = '/uploads/'.$model->id.'/'.$imageName.'.'.$model->file->extension;
+				$model->save();
+			}
+			
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -174,6 +182,16 @@ class OrganizationController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (UploadedFile::getInstance($model, 'file') != null) {
+				$imageName = $model->id;
+				$model->file = UploadedFile::getInstance($model, 'file');
+				FileHelper::createDirectory('uploads/'.$model->id.'/', 0777);
+				$model->file->saveAs('uploads/'.$model->id.'/'.$imageName.'.'.$model->file->extension);
+				
+				$model->photo = '/uploads/'.$model->id.'/'.$imageName.'.'.$model->file->extension;
+				$model->save();
+			}
+			
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

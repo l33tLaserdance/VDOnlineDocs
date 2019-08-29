@@ -11,6 +11,8 @@ use yii\filters\AccessControl;
 use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 
 /**
  * ObjectsController implements the CRUD actions for Objects model.
@@ -77,6 +79,16 @@ class ObjectsController extends Controller
         $model = new Objects();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (UploadedFile::getInstance($model, 'file') != null) {
+				$imageName = $model->obj_id;
+				$model->file = UploadedFile::getInstance($model, 'file');
+				FileHelper::createDirectory('uploads/'.$_SESSION['org_id'].'/'.$model->obj_id, 0777);
+				$model->file->saveAs('uploads/'.$_SESSION['org_id'].'/'.$model->obj_id.'/'.$imageName.'.'.$model->file->extension);
+				
+				$model->photo = '/uploads/'.$_SESSION['org_id'].'/'.$model->obj_id.'/'.$imageName.'.'.$model->file->extension;
+				$model->save();
+			}
+			
             return $this->redirect(['view', 'id' => $model->obj_id]);
         }
 
@@ -97,6 +109,16 @@ class ObjectsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (UploadedFile::getInstance($model, 'file') != null) {
+				$imageName = $model->obj_id;
+				$model->file = UploadedFile::getInstance($model, 'file');
+				FileHelper::createDirectory('uploads/'.$_SESSION['org_id'].'/'.$model->obj_id, 0777);
+				$model->file->saveAs('uploads/'.$_SESSION['org_id'].'/'.$model->obj_id.'/'.$imageName.'.'.$model->file->extension);
+				
+				$model->photo = '/uploads/'.$_SESSION['org_id'].'/'.$model->obj_id.'/'.$imageName.'.'.$model->file->extension;
+				$model->save();
+			}
+			
             return $this->redirect(['view', 'id' => $model->obj_id]);
         }
 

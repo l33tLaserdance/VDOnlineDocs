@@ -9,13 +9,14 @@ use Yii;
  *
  * @property int $device_id
  * @property int $case_id
- * @property string $device_type
+ * @property int $device_type
  * @property string $device_name
  * @property string $device_link
  * @property int $port
  * @property string $Comment
  *
  * @property Cases $case
+ * @property DeviceTypes $deviceType
  */
 class Devices extends \yii\db\ActiveRecord
 {
@@ -33,11 +34,14 @@ class Devices extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['case_id', 'port'], 'integer'],
+            [['case_id', 'device_type', 'port'], 'integer'],
             [['Comment'], 'string'],
-            [['device_type', 'device_name'], 'string', 'max' => 45],
-            [['device_link'], 'string', 'max' => 100],
+            [['device_name', 'device_switchn', 'device_ip'], 'string', 'max' => 45],
+            [['device_link'], 'string', 'max' => 200],
             [['case_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cases::className(), 'targetAttribute' => ['case_id' => 'case_id']],
+            [['device_type'], 'exist', 'skipOnError' => true, 'targetClass' => DeviceTypes::className(), 'targetAttribute' => ['device_type' => 'dt_id']],
+			[['device_type'], 'required', 'message' => 'Устройство не выбрано.'],
+			[['device_name'], 'required', 'message' => 'Наименование не указано.'],
         ];
     }
 
@@ -54,6 +58,8 @@ class Devices extends \yii\db\ActiveRecord
             'device_link' => 'Информация о устройстве',
             'port' => 'Количество портов',
             'Comment' => 'Комментарий',
+			'device_switchn' => 'Название коммутатора',
+			'device_ip' => 'IP адрес коммутатора',
         ];
     }
 
@@ -63,5 +69,13 @@ class Devices extends \yii\db\ActiveRecord
     public function getCase()
     {
         return $this->hasOne(Cases::className(), ['case_id' => 'case_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDeviceType()
+    {
+        return $this->hasOne(DeviceTypes::className(), ['dt_id' => 'device_type']);
     }
 }

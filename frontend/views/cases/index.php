@@ -94,17 +94,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'comm_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'70px'],
             ['attribute'=>'case_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'90px'],
             ['attribute'=>'switch_ip','format'=>['text'], 'hAlign'=>'center', 'width'=>'20px'],
-            ['attribute'=>'placement','format'=>['text'], 'hAlign'=>'left', 'width'=>'350px'],
+            ['attribute'=>'placement','format'=>['text'], 'hAlign'=>'left', 'width'=>'420px'],
             ['attribute'=>'expulsion','format'=>['text'], 'hAlign'=>'left', 'width'=>'150px'],
             ['attribute'=>'links','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px'],
             ['class' => 'kartik\grid\BooleanColumn', 'trueLabel' => 'Да', 'falseLabel' => 'Нет', 'attribute' => 'order', 'hAlign'=>'center', 'width'=>'10px'],
-            ['attribute'=>'photo','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px'],
+            //['attribute'=>'photo','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px'],
             //'Comment:ntext',
 
             ['class' => 'yii\grid\ActionColumn',
 				'urlCreator' => function($action, $model, $key, $index) {
 					return [$action, 'id' => $model['case_id'], 'case' => $_GET['obj_name'], 'case_num' => $model['case_num']];
 				},
+				'visibleButtons' => [
+					'delete' => false,
+				],
 			],
         ],
 		'options' => [

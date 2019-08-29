@@ -21,6 +21,8 @@ class Objects extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+	public $file; 
+	
     public static function tableName()
     {
         return 'objects';
@@ -34,6 +36,7 @@ class Objects extends \yii\db\ActiveRecord
         return [
             [['org_id'], 'integer'],
             [['Comment'], 'string'],
+			[['file'], 'file'],
             [['address', 'obj_name', 'photo', 'map'], 'string', 'max' => 100],
             [['org_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['org_id' => 'id']],
         ];
@@ -50,6 +53,7 @@ class Objects extends \yii\db\ActiveRecord
             'address' => 'Адрес',
             'obj_name' => 'Название объекта',
             'Comment' => 'Комментарий',
+			'file' => 'Фотография',
 			'photo' => 'Фотография',
 			'map' => 'Карта',
         ];

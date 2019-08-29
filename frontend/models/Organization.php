@@ -21,6 +21,8 @@ class Organization extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+	public $file; 
+	 
     public static function tableName()
     {
         return 'organization';
@@ -33,6 +35,7 @@ class Organization extends \yii\db\ActiveRecord
     {
         return [
             [['Comment'], 'string'],
+			[['file'], 'file'],
             [['org_name', 'org_full_name', 'org_address', 'photo'], 'string', 'max' => 100],
             [['INN'], 'string', 'max' => 12],
         ];
@@ -50,6 +53,7 @@ class Organization extends \yii\db\ActiveRecord
             'INN' => 'ИНН',
 			'org_address' => 'Адрес организации',
             'Comment' => 'Комментарий',
+			'file' => 'Фотография',
 			'photo' => 'Фотография',
         ];
     }

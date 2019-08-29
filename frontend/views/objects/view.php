@@ -10,7 +10,7 @@ $this->title = 'Просмотр объекта: ' . $model->obj_name;
 $this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => ['/organization']];
 $this->params['breadcrumbs'][] = ['label' => $_SESSION['org_full_name'], 'url' => ['/organization/view', 'id' => $model->org_id], 'style' => 'color: green;'];
 $this->params['breadcrumbs'][] = ['label' => 'Объекты', 'url' => ['index', 'id' => $model->org_id, 'org_full_name' => $_SESSION['org_full_name']]];
-$this->params['breadcrumbs'][] = 'Просмотр объекта';
+$this->params['breadcrumbs'][] = $model->obj_name;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="objects-view">
@@ -19,13 +19,6 @@ $this->params['breadcrumbs'][] = 'Просмотр объекта';
 
     <p>
         <?= Html::a('Редактирование', ['update', 'id' => $model->obj_id, 'org' => $_SESSION['org_full_name']], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удаление', ['delete', 'id' => $model->obj_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены, что хотите удалить данную запись??',
-                'method' => 'post',
-            ],
-        ]) ?>
     </p>
 
     <?= DetailView::widget([

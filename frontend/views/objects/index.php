@@ -55,6 +55,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
 		'pjax' => true,
 		'id' => 'obj_table',
+		'formatter' => [
+			'class' => 'yii\i18n\Formatter',
+			'nullDisplay' => ''
+		],
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
@@ -66,12 +70,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				return HTML::a(Html::encode($data['obj_name']), Url::to(['organization/objects/cases', 'id' => $data['obj_id'], 'org_full_name' => $_GET['org_full_name'], 'obj_name' => $data['obj_name']]));
 			},
 			'format'=>['html'], 'hAlign'=>'center', 'width'=>'300px'],
-            ['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'center'],
+            ['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'left', 'width'=>'440px'],
 
             ['class' => 'yii\grid\ActionColumn',
 				'urlCreator' => function($action, $model, $key, $index) {
 					return [$action, 'id' => $model['obj_id'], 'org' => $_GET['org_full_name']];
 				},
+				'visibleButtons' => [
+					'delete' => false,
+				],
 			],
 		],
 		'options' => [

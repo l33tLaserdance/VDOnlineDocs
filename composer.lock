@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccd1581ef2800f8fd840184def67e70b",
+    "content-hash": "ee537b83fbf8fcf9f3f7aa8fa3944518",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -3120,16 +3120,16 @@
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
-            "version": "2.0.7",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
-                "reference": "6745eb7cfc13ac7bc01b396adb8410aa41711fa6"
+                "reference": "8a58820d0f56414784c3110118cb91e7d8d5bcdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/6745eb7cfc13ac7bc01b396adb8410aa41711fa6",
-                "reference": "6745eb7cfc13ac7bc01b396adb8410aa41711fa6",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/8a58820d0f56414784c3110118cb91e7d8d5bcdc",
+                "reference": "8a58820d0f56414784c3110118cb91e7d8d5bcdc",
                 "shasum": ""
             },
             "require": {
@@ -3185,7 +3185,7 @@
                 "bootstrap4",
                 "yii2"
             ],
-            "time": "2019-08-13T11:49:38+00:00"
+            "time": "2019-08-13T11:49:58+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -6151,6 +6151,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-grid": 20,
+        "yiisoft/yii2-bootstrap4": 20,
         "kartik-v/yii2-export": 20,
         "kartik-v/yii2-widget-typeahead": 20,
         "kartik-v/yii2-detail-view": 20,

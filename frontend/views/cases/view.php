@@ -5,6 +5,8 @@ use kartik\detail\DetailView;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use kartik\export\ExportMenu;
+use yii\helpers\ArrayHelper;
+use frontend\models\DeviceTypes;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Cases */
@@ -24,14 +26,7 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 
     <p>
         <?= Html::a('Редактировать', ['update', 'id' => $model->case_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->case_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены что хотите удалить эту запись?',
-                'method' => 'post',
-            ],
-        ]) ?>
-		<?= Html::a('Добавить устройство', ['devices/create', 'id' => $_SESSION['case'], 'case_num' => $model->case_num], ['class' => 'btn btn-success', 'style' => "margin-left: 274px"]) ?>
+		<?= Html::a('Добавить устройство', ['devices/create', 'id' => $_SESSION['case'], 'case_num' => $model->case_num], ['class' => 'btn btn-success', 'style' => "margin-left: 358px"]) ?>
     </p>
 <div class="row">
 	<div class="col-lg-5">
@@ -101,8 +96,16 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 					'displayOnly' => true,
 					'format' => 'raw',
 					'valueColOptions' => ['style' => 'width: 200px'],
-					'value' => $model->order ? '<span class="badge badge-success">Да</span>' : '<span class="badge badge-danger">Нет</span>',
+					'value' => $model->order ? '<span class="label label-success">Да</span>' : '<span class="label label-danger">Нет</span>',
 				],
+				/*[
+					'attribute' => 'photo',
+					'label' => 'Фотография:',
+					'displayOnly' => true,
+					'format' => 'html',
+					'valueColOptions' => ['style' => 'width: 200px'],
+					'value' => '<img src="'.$model->photo.'" style="width: 50%; height: 50%;">',
+				],*/
 			],
 		]) ?>
 		<label for="inputComment" class="control-label col-xs-2">Комментарий:</label>
@@ -126,6 +129,10 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 				'attribute' => 'port',
 				'label' => 'Количество портов',
 			],
+			[
+				'attribute' => 'Comment',
+				'label' => 'Комментарий',
+			],
 		]	
 	]);
 	?>
@@ -144,13 +151,18 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 
 			//'device_id',
 			//'case_id',
-			['attribute'=>'device_type','format'=>['text'], 'hAlign'=>'center', 'width'=>'100px'],
-			['attribute'=>'device_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'120px'],
-			['attribute'=>'device_link','format'=>['text'], 'hAlign'=>'center', 'width'=>'300px'],
-			['attribute'=>'port','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px'],
-			//'Comment:ntext',
+			['attribute'=>'device_type','format'=>['text'], 'value'=>'deviceType.dt_name', 'filter'=>ArrayHelper::map(DeviceTypes::find()->all(), 'dt_id', 'dt_name'),'hAlign'=>'center', 'width'=>'100px'],
+			['attribute'=>'device_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'100px'],
+			['attribute'=>'device_link','format'=>['html'], 'hAlign'=>'center', 'width'=>'100px'],
+			['attribute'=>'port','format'=>['text'], 'hAlign'=>'center', 'width'=>'30px'],
+			['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'center', 'width'=>'300px'],
 
 			['class' => 'yii\grid\ActionColumn',
+				'visibleButtons' => [
+					'delete' => function ($model, $key, $index) {
+						return $model->device_type == 1;
+					}
+				],
 				'urlCreator' => function ($action, $model, $key, $index) {
 					if ($action === 'view') {
 						$url ='/devices/view?id='.$model->device_id;
@@ -161,14 +173,22 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 						$url ='/devices/update?id='.$model->device_id;
 						return $url;
 					}
+
 					if ($action === 'delete') {
-						$url ='/devices/delete?id='.$model->device_id;
+						$url ='/devices/delete?id='.$model->device_id.'&devicetype='.$model->device_type;
 						return $url;
 					}
 				}
 			],
 		],
+		'options' => [
+			'style' => 'word-warp: break-word; font-size: 12px;'
+		],
     ]); ?>
+	</div>
+	
+	<div class="col-lg-7">
+		<img src="<?= $model->photo; ?>" style="max-width: 100%; max-height: 100%;">
 	</div>
 </div>
 </div>

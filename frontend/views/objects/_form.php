@@ -24,6 +24,8 @@ use frontend\models\Objects;
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'obj_name')->textInput(['maxlength' => true]) ?>
+	
+	<?= $form->field($model, 'file')->fileInput() ?>
 
     <?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 

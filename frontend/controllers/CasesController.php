@@ -13,6 +13,8 @@ use yii\filters\VerbFilter;
 use yii\db\Query;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 
 /**
  * CasesController implements the CRUD actions for Cases model.
@@ -87,6 +89,16 @@ class CasesController extends Controller
         $model = new Cases();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (UploadedFile::getInstance($model, 'file') != null) {
+				$imageName = $model->case_id;
+				$model->file = UploadedFile::getInstance($model, 'file');
+				FileHelper::createDirectory('uploads/'.$_SESSION['org_id'].'/'.$_SESSION['obj_id'].'/'.$model->case_id.'/', 0777);
+				$model->file->saveAs('uploads/'.$_SESSION['org_id'].'/'.$_SESSION['obj_id'].'/'.$model->case_id.'/'.$imageName.'.'.$model->file->extension);
+				
+				$model->photo = '/uploads/'.$_SESSION['org_id'].'/'.$_SESSION['obj_id'].'/'.$model->case_id.'/'.$imageName.'.'.$model->file->extension;
+				$model->save();
+			}
+			
             return $this->redirect(['view', 'id' => $model->case_id]);
         }
 
@@ -107,6 +119,16 @@ class CasesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if (UploadedFile::getInstance($model, 'file') != null) {
+				$imageName = $model->case_id;
+				$model->file = UploadedFile::getInstance($model, 'file');
+				FileHelper::createDirectory('uploads/'.$_SESSION['org_id'].'/'.$_SESSION['obj_id'].'/'.$model->case_id.'/', 0777);
+				$model->file->saveAs('uploads/'.$_SESSION['org_id'].'/'.$_SESSION['obj_id'].'/'.$model->case_id.'/'.$imageName.'.'.$model->file->extension);
+			
+				$model->photo = '/uploads/'.$_SESSION['org_id'].'/'.$_SESSION['obj_id'].'/'.$model->case_id.'/'.$imageName.'.'.$model->file->extension;
+				$model->save();
+			}
+			
             return $this->redirect(['view', 'id' => $model->case_id]);
         }
 

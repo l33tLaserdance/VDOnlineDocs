@@ -17,8 +17,8 @@ class DevicesSearch extends Devices
     public function rules()
     {
         return [
-            [['device_id', 'case_id', 'port'], 'integer'],
-            [['device_type', 'device_name', 'device_link', 'Comment'], 'safe'],
+            [['device_id', 'case_id', 'port', 'device_type'], 'integer'],
+            [['device_name', 'device_link', 'Comment'], 'safe'],
         ];
     }
 
@@ -58,7 +58,7 @@ class DevicesSearch extends Devices
             // $query->where('0=1');
             return $dataProvider;
         }
-
+		
         // grid filtering conditions
         $query->andFilterWhere([
             'device_id' => $this->device_id,
@@ -69,7 +69,9 @@ class DevicesSearch extends Devices
         $query->andFilterWhere(['like', 'device_type', $this->device_type])
             ->andFilterWhere(['like', 'device_name', $this->device_name])
             ->andFilterWhere(['like', 'device_link', $this->device_link])
-            ->andFilterWhere(['like', 'Comment', $this->Comment]);
+            ->andFilterWhere(['like', 'Comment', $this->Comment])
+			->andFilterWhere(['like', 'device_switchn', $this->device_switchn])
+			->andFilterWhere(['like', 'device_ip', $this->device_ip]);
 
         return $dataProvider;
     }

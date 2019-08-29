@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'INN')->textInput(['maxlength' => true]) ?>
 	
 	<?= $form->field($model, 'org_address')->textInput(['maxlength' => true]) ?>
+	
+	<?= $form->field($model, 'file')->fileInput() ?>
 
     <?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 

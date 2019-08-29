@@ -48,8 +48,8 @@ use kartik\date\DatePicker;
 		'1' => 'Да',
 	]); 
 	?>
-
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
+	
+	<?= $form->field($model, 'file')->fileInput() ?>
 
     <?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 

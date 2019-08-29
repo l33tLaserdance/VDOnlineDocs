@@ -29,6 +29,8 @@ class Cases extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+	public $file;
+	 
     public static function tableName()
     {
         return 'cases';
@@ -43,8 +45,9 @@ class Cases extends \yii\db\ActiveRecord
             [['case_id', 'obj_id', 'case_num', 'order'], 'integer'],
             [['expulsion'], 'safe'],
             [['Comment'], 'string'],
-            [['build_num', 'comm_name', 'case_name', 'switch_ip', 'links', 'photo', 'expulsion'], 'string', 'max' => 45],
-            [['placement'], 'string', 'max' => 100],
+			[['file'], 'file'],
+            [['build_num', 'comm_name', 'case_name', 'switch_ip', 'links', 'expulsion'], 'string', 'max' => 45],
+            [['placement', 'photo'], 'string', 'max' => 100],
             [['obj_id'], 'exist', 'skipOnError' => true, 'targetClass' => Objects::className(), 'targetAttribute' => ['obj_id' => 'obj_id']],
         ];
     }
@@ -66,6 +69,7 @@ class Cases extends \yii\db\ActiveRecord
             'expulsion' => 'Продувка',
             'links' => 'Линки',
             'order' => 'Порядок',
+			'file' => 'Фотография',
             'photo' => 'Фото',
             'Comment' => 'Комментарий',
         ];
