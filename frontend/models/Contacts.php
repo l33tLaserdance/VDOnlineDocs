@@ -39,6 +39,7 @@ class Contacts extends \yii\db\ActiveRecord
             [['Phone'], 'string', 'max' => 30],
             [['Email'], 'string', 'max' => 255],
             [['org_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['org_id' => 'id']],
+			[['org_id'], 'required', 'message' => 'Выберите организацию'],
         ];
     }
 
@@ -48,8 +49,8 @@ class Contacts extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'contact_id' => 'ID',
-            'org_id' => 'Org ID',
+            'contact_id' => 'ID контакта',
+            'org_id' => 'Организация',
             'FIO' => 'ФИО',
             'Phone' => 'Телефон',
             'Email' => 'Email',

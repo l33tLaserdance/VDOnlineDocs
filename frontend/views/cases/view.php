@@ -24,12 +24,13 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->case_id], ['class' => 'btn btn-primary']) ?>
-		<?= Html::a('Добавить устройство', ['devices/create', 'id' => $_SESSION['case'], 'case_num' => $model->case_num], ['class' => 'btn btn-success', 'style' => "margin-left: 358px"]) ?>
-    </p>
 <div class="row">
 	<div class="col-lg-5">
+	
+		<p>
+			<?= Html::a('Редактировать', ['update', 'id' => $model->case_id], ['class' => 'btn btn-primary']) ?>
+		</p>
+	
 		<?= DetailView::widget([
 			'model' => $model,
 			'condensed' => true,
@@ -41,61 +42,65 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 				'heading' => 'Информация о шкафе:',
 				'type' => DetailView::TYPE_SUCCESS,
 			],
+			'formatter' => [
+				'class' => 'yii\i18n\Formatter',
+				'nullDisplay' => ''
+			],
 			'attributes' => [
 				[
 					'attribute' => 'case_num',
 					'label' => '№ Шкафа:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'build_num',
 					'label' => '№ Стр.:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'comm_name',
 					'label' => 'Альт. название (по коммутатору):',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'case_name',
 					'label' => 'Назв. шкафа (шифр с привязкой к стр. и этажу:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'switch_ip',
 					'label' => 'IP:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'placement',
 					'label' => 'Расположение:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'expulsion',
 					'label' => 'Продувка:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'links',
 					'label' => 'Линки:',
 					'displayOnly' => true,
-					'valueColOptions' => ['style' => 'width: 200px']
+					'valueColOptions' => ['style' => 'width: 30%']
 				],
 				[
 					'attribute' => 'order',
 					'label' => 'Порядок:',
 					'displayOnly' => true,
 					'format' => 'raw',
-					'valueColOptions' => ['style' => 'width: 200px'],
+					'valueColOptions' => ['style' => 'width: 30%'],
 					'value' => $model->order ? '<span class="label label-success">Да</span>' : '<span class="label label-danger">Нет</span>',
 				],
 				/*[
@@ -112,13 +117,17 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 		<input name="Comment" type="text" class="form-control" style="cursor: context-menu; background-color: white;" id="inputComment" value="<?= $model->Comment; ?>" placeholder="Комментариев пока нет." disabled>
 	</div>
 	<div class="col-lg-7">
-		
+	
+	<p>	
+		<?= Html::a('Добавить устройство', ['devices/create', 'id' => $_SESSION['case'], 'case_num' => $model->case_num], ['class' => 'btn btn-success']) ?>
+	</p>
+	
 	<?php
 	echo ExportMenu::widget([
 		'dataProvider' => $dataProvider,
 		'columns' => [
 			[
-				'attribute' => 'device_type',
+				'attribute' => 'deviceType.dt_name',
 				'label' => 'Тип устройства',
 			],
 			[
@@ -151,11 +160,11 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 
 			//'device_id',
 			//'case_id',
-			['attribute'=>'device_type','format'=>['text'], 'value'=>'deviceType.dt_name', 'filter'=>ArrayHelper::map(DeviceTypes::find()->all(), 'dt_id', 'dt_name'),'hAlign'=>'center', 'width'=>'100px'],
-			['attribute'=>'device_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'100px'],
-			['attribute'=>'device_link','format'=>['html'], 'hAlign'=>'center', 'width'=>'100px'],
-			['attribute'=>'port','format'=>['text'], 'hAlign'=>'center', 'width'=>'30px'],
-			['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'center', 'width'=>'300px'],
+			['attribute'=>'device_type','format'=>['text'], 'value'=>'deviceType.dt_name', 'filter'=>ArrayHelper::map(DeviceTypes::find()->all(), 'dt_id', 'dt_name'),'hAlign'=>'center', 'width'=>'20%'],
+			['attribute'=>'device_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'20%'],
+			['attribute'=>'device_link','format'=>['html'], 'hAlign'=>'center', 'width'=>'20%'],
+			['attribute'=>'port','format'=>['text'], 'hAlign'=>'center', 'width'=>'5%'],
+			['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'center', 'width'=>'25%'],
 
 			['class' => 'yii\grid\ActionColumn',
 				'visibleButtons' => [
@@ -178,11 +187,12 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 						$url ='/devices/delete?id='.$model->device_id.'&devicetype='.$model->device_type;
 						return $url;
 					}
-				}
+				},
+				'contentOptions' => ['style' => 'width: 10%;'],
 			],
 		],
 		'options' => [
-			'style' => 'word-warp: break-word; font-size: 12px;'
+			'style' => 'word-warp: break-word; font-size: 12px; table-layout: fixed;'
 		],
     ]); ?>
 	</div>

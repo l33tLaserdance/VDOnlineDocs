@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use frontend\models\Organization;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Contacts */
@@ -12,7 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'org_id')->textInput() ?>
+    <?= $form->field($model, 'org_id')->dropDownList(
+		ArrayHelper::map(Organization::find()->all(), 'id', 'org_full_name'),
+		['prompt' => 'Выберите организацию']
+	) ?>
 
     <?= $form->field($model, 'FIO')->textInput(['maxlength' => true]) ?>
 
@@ -25,7 +30,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

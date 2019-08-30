@@ -87,16 +87,16 @@ $this->params['breadcrumbs'][] = $this->title;
             //'switch_name',
             //'switch_model',
             //'switch_ip',
-            ['attribute'=>'port','format'=>['raw'], 'hAlign'=>'center', 'width'=>'50px'],
-            ['attribute'=>'connected_to','format'=>['text'], 'hAlign'=>'center', 'width'=>'300px'],
-            ['attribute'=>'model_connected_to','format'=>['text'], 'hAlign'=>'center', 'width'=>'200px'],
-            ['attribute'=>'ip_connected_to','format'=>['text'], 'hAlign'=>'center', 'width'=>'100px'],
+            ['attribute'=>'port','format'=>['raw'], 'hAlign'=>'center', 'width'=>'5%'],
+            ['attribute'=>'connected_to','format'=>['text'], 'hAlign'=>'center', 'width'=>'20%'],
+            ['attribute'=>'model_connected_to','format'=>['text'], 'hAlign'=>'center', 'width'=>'20%'],
+            ['attribute'=>'ip_connected_to','format'=>['text'], 'hAlign'=>'center', 'width'=>'10%'],
             ['attribute'=>'Comment',
 			/*'contentOptions' => function ($model, $key, $index, $column) {
 				return ['style' => 'background-color:' 
 					. ($model->functional == 1 ? 'red' : 'white')];
 			},*/ //иметь ввиду, что так можно менять цвет одной конкретной ячейки
-			'format'=>['text'], 'hAlign'=>'left', 'width'=>'440px'],
+			'format'=>['text'], 'hAlign'=>'left', 'width'=>'35%'],
 			//['class' => 'kartik\grid\BooleanColumn', 'trueLabel' => 'Да', 'falseLabel' => 'Нет', 'attribute' => 'functional', 'hAlign'=>'center', 'width'=>'10px'],
 
             ['class' => 'yii\grid\ActionColumn',

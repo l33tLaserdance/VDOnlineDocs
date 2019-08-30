@@ -48,8 +48,8 @@ class Responsible extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'resp_id' => 'ID',
-            'resp_FIO' => 'ФИО',
+            'resp_id' => 'ID ответственного',
+            'resp_FIO' => 'ФИО ответственного',
             'resp_phone' => 'Контактный телефон',
             'resp_email' => 'Email',
         ];

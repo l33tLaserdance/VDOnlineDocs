@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Contacts;
-use frontend\models\ContactsSearch;
+use frontend\models\RespOrg;
+use frontend\models\ResporgSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ContactsController implements the CRUD actions for Contacts model.
+ * ResporgController implements the CRUD actions for RespOrg model.
  */
-class ContactsController extends Controller
+class ResporgController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class ContactsController extends Controller
     }
 
     /**
-     * Lists all Contacts models.
+     * Lists all RespOrg models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ContactsSearch();
+        $searchModel = new ResporgSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ContactsController extends Controller
     }
 
     /**
-     * Displays a single Contacts model.
+     * Displays a single RespOrg model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class ContactsController extends Controller
     }
 
     /**
-     * Creates a new Contacts model.
+     * Creates a new RespOrg model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Contacts();
+        $model = new RespOrg();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->contact_id, 'org' => $model->org_id]);
+            return $this->redirect(['view', 'id' => $model->id, 'org' => $model->org_id, 'resp' => $model->resp_id]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class ContactsController extends Controller
     }
 
     /**
-     * Updates an existing Contacts model.
+     * Updates an existing RespOrg model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class ContactsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $_SESSION['org_id'], 'org' => $model->org_id]);
+            return $this->redirect(['view', 'id' => $model->id, 'org' => $model->org_id, 'resp' => $model->resp_id]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class ContactsController extends Controller
     }
 
     /**
-     * Deletes an existing Contacts model.
+     * Deletes an existing RespOrg model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class ContactsController extends Controller
     }
 
     /**
-     * Finds the Contacts model based on its primary key value.
+     * Finds the RespOrg model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Contacts the loaded model
+     * @return RespOrg the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Contacts::findOne($id)) !== null) {
+        if (($model = RespOrg::findOne($id)) !== null) {
             return $model;
         }
 

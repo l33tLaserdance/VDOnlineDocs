@@ -4,12 +4,12 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Contacts;
+use frontend\models\Responsible;
 
 /**
- * ContactsSearch represents the model behind the search form of `frontend\models\Contacts`.
+ * ResponsibleSearch represents the model behind the search form of `frontend\models\Responsible`.
  */
-class ContactsSearch extends Contacts
+class ResponsibleSearch extends Responsible
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class ContactsSearch extends Contacts
     public function rules()
     {
         return [
-            [['contact_id', 'org_id'], 'integer'],
-            [['FIO', 'Phone', 'Email', 'Positon', 'Comment'], 'safe'],
+            [['resp_id'], 'integer'],
+            [['resp_FIO', 'resp_phone', 'resp_email'], 'safe'],
         ];
     }
 
@@ -40,15 +40,10 @@ class ContactsSearch extends Contacts
      */
     public function search($params)
     {
-        $query = Contacts::find();
+        $query = Responsible::find();
 
         // add conditions that should always apply here
-		if (isset($_GET['id'])) {
-			$id = $_GET['id'];
-			
-			$query = Contacts::find()->where(['org_id' => $id]);
-		}
-		
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -63,15 +58,12 @@ class ContactsSearch extends Contacts
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'contact_id' => $this->contact_id,
-            'org_id' => $this->org_id,
+            'resp_id' => $this->resp_id,
         ]);
 
-        $query->andFilterWhere(['like', 'FIO', $this->FIO])
-            ->andFilterWhere(['like', 'Phone', $this->Phone])
-            ->andFilterWhere(['like', 'Email', $this->Email])
-            ->andFilterWhere(['like', 'Positon', $this->Positon])
-            ->andFilterWhere(['like', 'Comment', $this->Comment]);
+        $query->andFilterWhere(['like', 'resp_FIO', $this->resp_FIO])
+            ->andFilterWhere(['like', 'resp_phone', $this->resp_phone])
+            ->andFilterWhere(['like', 'resp_email', $this->resp_email]);
 
         return $dataProvider;
     }

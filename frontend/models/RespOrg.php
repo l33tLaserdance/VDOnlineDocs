@@ -30,11 +30,11 @@ class RespOrg extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
             [['id', 'org_id', 'resp_id'], 'integer'],
-            [['id'], 'unique'],
             [['org_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['org_id' => 'id']],
             [['resp_id'], 'exist', 'skipOnError' => true, 'targetClass' => Responsible::className(), 'targetAttribute' => ['resp_id' => 'resp_id']],
+			[['org_id'], 'required', 'message' => 'Выберите организацию'],
+			[['resp_id'], 'required', 'message' => 'Выберите ответственного'],
         ];
     }
 
@@ -44,9 +44,9 @@ class RespOrg extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'org_id' => 'Org ID',
-            'resp_id' => 'Resp ID',
+            'id' => 'ID записи',
+            'org_id' => 'Организация',
+            'resp_id' => 'Ответственный',
         ];
     }
 

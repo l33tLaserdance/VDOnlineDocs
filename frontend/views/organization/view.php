@@ -15,13 +15,17 @@ $this->title = $model->org_full_name;
 $this->params['breadcrumbs'][] = ['label' => 'Организации', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+if (!isset($_SESSION['org_full_name'])) {
+	$_SESSION['org_full_name'] = $model->org_full_name;
+}
 ?>
 <div class="organization-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Редактирование', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Редактирование', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']); ?>
     </p>
 	
 	<?php
@@ -147,6 +151,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	
 	<div class="row">
 		<div class="col-lg-8">
+		<p>
+			<?= Html::a('Редактирование контактных лиц', ['contacts/index'/*, 'id' => $model->id]*/], ['class' => 'btn btn-success']) ?> <!-- расскоментить если надо передать id -->
+		</p>
+		
 		<?= GridView::widget([
 			'dataProvider' => $dataProvider,
 			//'filterModel' => $searchModel,
@@ -164,6 +172,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'footer' => false,
 			],
 		]); ?>
+		
+		<p>
+			<?= Html::a('Редактирование ответственных лиц', ['resporg/index'/*, 'id' => $model->id]*/], ['class' => 'btn btn-success']) ?> <!-- расскоментить если надо передать id -->
+		</p>
 		
 		<?= GridView::widget([
 			'dataProvider' => $dataProvider2,

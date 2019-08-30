@@ -10,7 +10,7 @@ return [
     'id' => 'app-frontend',
 	'language' => 'ru-RU',
 	'timeZone' => 'Europe/Moscow',
-	'name' => 'VDTECH Online Documentation by Evgeniy Kiselevskiy',
+	'name' => 'VDTECH Online Docs by Evgeniy Kiselevskiy',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',

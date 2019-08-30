@@ -4,12 +4,12 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Contacts;
+use frontend\models\RespOrg;
 
 /**
- * ContactsSearch represents the model behind the search form of `frontend\models\Contacts`.
+ * ResporgSearch represents the model behind the search form of `frontend\models\RespOrg`.
  */
-class ContactsSearch extends Contacts
+class ResporgSearch extends RespOrg
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,7 @@ class ContactsSearch extends Contacts
     public function rules()
     {
         return [
-            [['contact_id', 'org_id'], 'integer'],
-            [['FIO', 'Phone', 'Email', 'Positon', 'Comment'], 'safe'],
+            [['id', 'org_id', 'resp_id'], 'integer'],
         ];
     }
 
@@ -40,15 +39,10 @@ class ContactsSearch extends Contacts
      */
     public function search($params)
     {
-        $query = Contacts::find();
+        $query = RespOrg::find();
 
         // add conditions that should always apply here
-		if (isset($_GET['id'])) {
-			$id = $_GET['id'];
-			
-			$query = Contacts::find()->where(['org_id' => $id]);
-		}
-		
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -63,15 +57,10 @@ class ContactsSearch extends Contacts
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'contact_id' => $this->contact_id,
+            'id' => $this->id,
             'org_id' => $this->org_id,
+            'resp_id' => $this->resp_id,
         ]);
-
-        $query->andFilterWhere(['like', 'FIO', $this->FIO])
-            ->andFilterWhere(['like', 'Phone', $this->Phone])
-            ->andFilterWhere(['like', 'Email', $this->Email])
-            ->andFilterWhere(['like', 'Positon', $this->Positon])
-            ->andFilterWhere(['like', 'Comment', $this->Comment]);
 
         return $dataProvider;
     }
