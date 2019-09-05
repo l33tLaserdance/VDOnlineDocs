@@ -66,11 +66,9 @@ class OptcrossSearch extends Optcross
             'port' => $this->port,
         ]);
 
-        $query->andFilterWhere(['like', 'optcross_name', $this->optcross_name])
-            ->andFilterWhere(['like', 'uplink', $this->uplink])
-            ->andFilterWhere(['like', 'connected_to', $this->connected_to])
-            ->andFilterWhere(['like', 'Comment', $this->Comment])
-			->andFilterWhere(['like', 'functional', $this->functional]);
+        if (isset($params['search']))
+            $query->andWhere(['or',['like', 'port', $params['search']], ['like', 'Comment', $params['search']], 
+		['like', 'uplink', $params['search']], ['like', 'INN', $params['connected_to']]]);
 
         return $dataProvider;
     }

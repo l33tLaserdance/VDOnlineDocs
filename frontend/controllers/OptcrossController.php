@@ -33,7 +33,7 @@ class OptcrossController extends Controller
      * Lists all Optcross models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($search = '')
     {
 		if (isset($_GET['optcross'])) {
 			$_SESSION['optcross_id'] = $_GET['id'];
@@ -47,6 +47,7 @@ class OptcrossController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

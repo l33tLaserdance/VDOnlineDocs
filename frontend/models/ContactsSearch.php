@@ -66,12 +66,10 @@ class ContactsSearch extends Contacts
             'contact_id' => $this->contact_id,
             'org_id' => $this->org_id,
         ]);
-
-        $query->andFilterWhere(['like', 'FIO', $this->FIO])
-            ->andFilterWhere(['like', 'Phone', $this->Phone])
-            ->andFilterWhere(['like', 'Email', $this->Email])
-            ->andFilterWhere(['like', 'Positon', $this->Positon])
-            ->andFilterWhere(['like', 'Comment', $this->Comment]);
+			
+		if (isset($params['search']))
+            $query->andWhere(['or',['like', 'FIO', $params['search']], ['like', 'Comment', $params['search']], 
+		['like', 'Phone', $params['search']], ['like', 'Email', $params['search']], ['like', 'Positon', $params['search']]]);
 
         return $dataProvider;
     }

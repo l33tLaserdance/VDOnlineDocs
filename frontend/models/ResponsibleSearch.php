@@ -60,10 +60,10 @@ class ResponsibleSearch extends Responsible
         $query->andFilterWhere([
             'resp_id' => $this->resp_id,
         ]);
-
-        $query->andFilterWhere(['like', 'resp_FIO', $this->resp_FIO])
-            ->andFilterWhere(['like', 'resp_phone', $this->resp_phone])
-            ->andFilterWhere(['like', 'resp_email', $this->resp_email]);
+		
+		if (isset($params['search']))
+            $query->andWhere(['or',['like', 'resp_FIO', $params['search']], 
+		['like', 'resp_phone', $params['search']], ['like', 'resp_email', $params['search']]]);
 
         return $dataProvider;
     }

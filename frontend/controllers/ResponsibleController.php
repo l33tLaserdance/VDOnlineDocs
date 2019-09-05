@@ -33,7 +33,7 @@ class ResponsibleController extends Controller
      * Lists all Responsible models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($search = '')
     {
         $searchModel = new ResponsibleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,6 +41,7 @@ class ResponsibleController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

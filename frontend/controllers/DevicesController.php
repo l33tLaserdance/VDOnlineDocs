@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\helpers\Json;
 use frontend\models\Devices;
 use frontend\models\DevicesSearch;
 use frontend\models\Ups;
@@ -13,6 +14,12 @@ use frontend\models\PatchPanel;
 use frontend\models\PatchpanelSearch;
 use frontend\models\Optcross;
 use frontend\models\OptcrossSearch;
+use frontend\models\UpsModels;
+use frontend\models\UpsmodelsSearch;
+use frontend\models\Patches;
+use frontend\models\PatchesSearch;
+use frontend\models\Ports;
+use frontend\models\PatchTypes;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,6 +81,12 @@ class DevicesController extends Controller
     public function actionCreate($id)
     {
         $model = new Devices();
+		$modelups = new UpsModels();
+		$modelports = new Ports();
+		$modelpptypes = new PatchTypes();
+		
+		$countpp = $this->Countpp();
+		$countoc = $this->Countoc();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			
@@ -84,6 +97,14 @@ class DevicesController extends Controller
 				$model1->device_id = $model->device_id;
 				$model1->ups_model = $model->device_name;
 				$model1->save();
+				
+				$modelups->load(Yii::$app->getRequest()->post());
+				
+				$modelnewups = new UpsModels();
+				
+				$modelnewups->manufacturer = $modelups->manufacturer;
+				$modelnewups->model = $modelups->model;
+				$modelnewups->save();
 				
 				$ups = (new Query())
 					->select(['ups_id'])
@@ -122,7 +143,7 @@ class DevicesController extends Controller
 				}
 			}
 			
-			if ($model->device_type == 3) {
+			if ($model->device_type == 3) {				
 				
 				$model3 = new PatchPanel();
 				
@@ -130,6 +151,13 @@ class DevicesController extends Controller
 				$model3->patch_name = $model->device_name;
 				$model3->ports = 1;
 				$model3->save();
+				
+				$modelpptypes->load(Yii::$app->getRequest()->post());
+				
+				$modelnewppt = new PatchTypes();
+				
+				$modelnewppt->type = $modelpptypes->type;
+				$modelnewppt->save();
 				
 				$model->device_link = '<a href="/patchpanel/index?id='.$model->device_id.'&patch_name='.$model->device_name.'">Ссылка</a>';
 				$model->save();
@@ -179,6 +207,11 @@ class DevicesController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+			'modelups' => $modelups,
+			'countpp' => $countpp,
+			'countoc' => $countoc,
+			'modelports' => $modelports,
+			'modelpptypes' => $modelpptypes,
         ]);
     }
 
@@ -213,9 +246,9 @@ class DevicesController extends Controller
     {
 		if ($this->findModel($id)->device_link == null) {
 			$this->findModel($id)->delete();
-		} elseif ($_GET['devicetype'] == 1) {
+		} 
+		if ($_GET['devicetype'] == 1) {
 			$this->findModelUps($id)->delete();
-		} else {
 			$this->findModel($id)->delete();
 		}
 
@@ -237,7 +270,7 @@ class DevicesController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрашиваемая страница не существует.');
     }
 	
 	protected function findModelUps($id)
@@ -252,6 +285,63 @@ class DevicesController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Запрашиваемая страница не существует.');
     }
+	
+	public function actionUpsModels($q = null) {
+		$query = UpsModels::find();
+		
+		$query->select(["concat(upsman_name, ' ', model) as all"])
+			->from(['ups_models', 'ups_manufacturers'])
+			->where('concat(upsman_name, " ", model) LIKE "%'. $q .'%"')
+			->andWhere('ups_models.manufacturer = ups_manufacturers.id_man')
+			->orderBy('all');
+			
+		$command = $query->createCommand();
+		$data = $command->QueryAll();
+		$out = [];
+		foreach ($data as $d) {
+			$out[] = $d['all'];
+		}
+		echo Json::encode($out);
+	}
+	
+	public function actionPpTypes($q = null) {
+		$query = Patches::find();
+		
+		$query->select(["type"])
+			->from(['patch_types'])
+			->where('type LIKE "%'. $q .'%"')
+			->orderBy('type');
+			
+		$command = $query->createCommand();
+		$data = $command->QueryAll();
+		$out = [];
+		foreach ($data as $d) {
+			$out[] = $d['type'];
+		}
+		echo Json::encode($out);
+	}
+	
+	protected function Countpp() {
+		$countpp = (new Query())
+			->select(['COUNT(*)'])
+			->from('devices')
+			->where(['case_id' => $_SESSION['case']])
+			->andWhere(['device_type' => 3])
+			->all();
+		$result = $countpp[0]['COUNT(*)'] + 1;
+		return $result;
+	}
+	
+	protected function Countoc() {
+		$countoc = (new Query())
+			->select(['COUNT(*)'])
+			->from('devices')
+			->where(['case_id' => $_SESSION['case']])
+			->andWhere(['device_type' => 4])
+			->all();
+		$result = $countoc[0]['COUNT(*)'] + 1;
+		return $result;
+	}
 }

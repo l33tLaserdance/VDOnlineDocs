@@ -24,11 +24,17 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'build_num')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comm_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'comm_name')->textInput(['maxlength' => true])->label('Альт. название (по коммутатору) <span class="red">*</span>') ?>
 
     <?= $form->field($model, 'case_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'switch_ip')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'switch_ip')->widget(\yii\widgets\MaskedInput::className(),[
+                                                    'clientOptions' => [
+                                                        'alias' => 'ip',
+                                                        'groupSeparator' => '.',
+                                                        'autoGroup' => true,
+                                                    ],
+                                                ])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'placement')->textInput(['maxlength' => true]) ?>
 

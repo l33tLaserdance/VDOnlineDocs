@@ -75,7 +75,7 @@ class OrganizationController extends Controller
      * Lists all Organization models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($search = '')
     {
         $searchModel = new OrgnizationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -83,6 +83,7 @@ class OrganizationController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

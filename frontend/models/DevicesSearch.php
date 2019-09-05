@@ -66,12 +66,9 @@ class DevicesSearch extends Devices
             'port' => $this->port,
         ]);
 
-        $query->andFilterWhere(['like', 'device_type', $this->device_type])
-            ->andFilterWhere(['like', 'device_name', $this->device_name])
-            ->andFilterWhere(['like', 'device_link', $this->device_link])
-            ->andFilterWhere(['like', 'Comment', $this->Comment])
-			->andFilterWhere(['like', 'device_switchn', $this->device_switchn])
-			->andFilterWhere(['like', 'device_ip', $this->device_ip]);
+        if (isset($params['search']))
+            $query->andWhere(['or',['like', 'device_name', $params['search']], 
+			['like', 'port', $params['search']], ['like', 'Comment', $params['search']]]);
 
         return $dataProvider;
     }

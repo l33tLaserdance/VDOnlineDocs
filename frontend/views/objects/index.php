@@ -20,11 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?> организации <?= $_GET['org_full_name'] ?></h1>
 
-    <p>
-        <?= Html::a('Добавить объект', ['create', 'id' => $_GET['id'], 'org_full_name' => $_GET['org_full_name'] ], ['class' => 'btn btn-success']) ?>   - причислить к данной организации новый объект
-    </p>
+    <div class="row">
+	
+		<div class="col-lg-4">
+			<?= Html::a('Добавить объект', ['create', 'id' => $_GET['id'], 'org_full_name' => $_GET['org_full_name'] ], ['class' => 'btn btn-success', 'style' => 'margin-top: 10px;']) ?>
+		</div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+		<div class="col-lg-2">
+		
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div>
 	
 	<?php
 	echo ExportMenu::widget([
@@ -52,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
 		'pjax' => true,
 		'id' => 'obj_table',
 		'formatter' => [
@@ -62,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'obj_id','format'=>['integer'], 'hAlign'=>'center', 'width'=>'10px'],
+            //['attribute'=>'obj_id','format'=>['integer'], 'hAlign'=>'center', 'width'=>'10px'],
             //['attribute'=>'org_id','format'=>['integer'], 'hAlign'=>'center', 'width'=>'10px'],
             ['attribute'=>'address','format'=>['text'], 'hAlign'=>'center', 'width'=>'300px'],
             ['attribute'=>'obj_name',

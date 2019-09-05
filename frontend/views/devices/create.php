@@ -20,6 +20,11 @@ $this->params['breadcrumbs'][] = 'Добавление устройства';
 
     <?= $this->render('_form', [
         'model' => $model,
+		'modelups' => $modelups,
+		'countpp' => $countpp,
+		'countoc' => $countoc,
+		'modelports' => $modelports,
+		'modelpptypes' => $modelpptypes,
     ]) ?>
 
 </div>

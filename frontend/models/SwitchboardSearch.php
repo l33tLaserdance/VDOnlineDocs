@@ -74,6 +74,10 @@ class SwitchboardSearch extends Switchboard
             ->andFilterWhere(['like', 'ip_connected_to', $this->ip_connected_to])
             ->andFilterWhere(['like', 'Comment', $this->Comment])
 			->andFilterWhere(['like', 'functional', $this->functional]);
+			
+		if (isset($params['search']))
+			$query->andWhere(['or',['like', 'port', $params['search']], ['like', 'Comment', $params['search']], 
+		['like', 'connected_to', $params['search']], ['like', 'model_connected_to', $params['search']], ['like', 'ip_connected_to', $params['search']]]);
 
         return $dataProvider;
     }

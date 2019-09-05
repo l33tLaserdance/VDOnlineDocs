@@ -23,15 +23,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 	<h2><?= 'Шкаф №'.$_SESSION['case_num'] ?></h2>
 
-    <p>
-        <?= Html::a('Удаление патч-панели', ['delete', 'id' => $_GET['id']], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены что хотите удалить данную патч-панель? Все данные будут потеряны безвозвратно и возможно в дальнейшем потребуется заполнять их заново.',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+	<div class="row">
+	
+		<div class="col-lg-4">
+			<?= Html::a('Удаление патч-панели', ['delete', 'id' => $_GET['id']], [
+				'class' => 'btn btn-danger',
+				'data' => [
+					'confirm' => 'Вы уверены что хотите удалить данную патч-панель? Все данные будут потеряны безвозвратно и возможно в дальнейшем потребуется заполнять их заново.',
+					'method' => 'post',
+				],
+				 'style' => 'margin-top: 10px;',
+			]) ?>
+		</div>
+
+		<div class="col-lg-2">
+		
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 	
@@ -63,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
+		//'filterModel' => $searchModel,
 		'pjax' => true,
 		'id' => 'patch_table',
 		'formatter' => [

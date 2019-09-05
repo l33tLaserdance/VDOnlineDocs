@@ -33,7 +33,7 @@ class PatchpanelController extends Controller
      * Lists all PatchPanel models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($search = '')
     {
 		if (isset($_GET['patch_name'])) {
 			$_SESSION['patch_id'] = $_GET['id'];
@@ -47,6 +47,7 @@ class PatchpanelController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

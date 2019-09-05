@@ -65,12 +65,10 @@ class PatchpanelSearch extends PatchPanel
             'device_id' => $this->device_id,
             'ports' => $this->ports,
         ]);
-
-        $query->andFilterWhere(['like', 'patch_name', $this->patch_name])
-            ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'ip', $this->ip])
-            ->andFilterWhere(['like', 'Comment', $this->Comment])
-			->andFilterWhere(['like', 'functional', $this->functional]);
+			
+		if (isset($params['search']))
+            $query->andWhere(['or',['like', 'model', $params['search']], ['like', 'Comment', $params['search']], 
+		['like', 'ip', $params['search']], ['like', 'ports', $params['search']]]);
 
         return $dataProvider;
     }

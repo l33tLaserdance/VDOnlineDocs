@@ -5,6 +5,7 @@ namespace frontend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Cases;
+use frontend\models\Devices;
 
 /**
  * CasesSearch represents the model behind the search form of `frontend\models\Cases`.
@@ -68,14 +69,11 @@ class CasesSearch extends Cases
             'order' => $this->order,
         ]);
 
-        $query->andFilterWhere(['like', 'build_num', $this->build_num])
-            ->andFilterWhere(['like', 'comm_name', $this->comm_name])
-            ->andFilterWhere(['like', 'case_name', $this->case_name])
-            ->andFilterWhere(['like', 'switch_ip', $this->switch_ip])
-            ->andFilterWhere(['like', 'placement', $this->placement])
-            ->andFilterWhere(['like', 'links', $this->links])
-            ->andFilterWhere(['like', 'photo', $this->photo])
-            ->andFilterWhere(['like', 'Comment', $this->Comment]);
+        if (isset($params['search']))
+            $query->andWhere(['or',['like', 'case_num', $params['search']], 
+		['like', 'build_num', $params['search']], ['like', 'comm_name', $params['search']], 
+		['like', 'case_name', $params['search']], ['like', 'switch_ip', $params['search']], 
+		['like', 'placement', $params['search']], ['like', 'Comment', $params['search']]]);
 
         return $dataProvider;
     }

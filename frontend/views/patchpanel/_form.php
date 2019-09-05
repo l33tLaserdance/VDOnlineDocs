@@ -14,7 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'model')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'ip')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'ip')->widget(\yii\widgets\MaskedInput::className(),[
+                                                    'clientOptions' => [
+                                                        'alias' => 'ip',
+                                                        'groupSeparator' => '.',
+                                                        'autoGroup' => true,
+                                                    ],
+                                                ])->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 	

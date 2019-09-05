@@ -23,17 +23,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 	<h2><?= 'Наименование: '.$_SESSION['name'].', IP-адрес: '.$_SESSION['ip'] ?></h2>
 	
-    <p>
-        <?= Html::a('Удаление коммутатора', ['delete', 'id' => $_GET['id']], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены что хотите удалить данный коммутатор? Все данные будут потеряны безвозвратно и возможно в дальнейшем потребуется заполнять их заново.',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div class="row">
 	
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+		<div class="col-lg-4">
+			<?= Html::a('Удаление коммутатора', ['delete', 'id' => $_GET['id']], [
+				'class' => 'btn btn-danger',
+				'data' => [
+					'confirm' => 'Вы уверены что хотите удалить данный коммутатор? Все данные будут потеряны безвозвратно и возможно в дальнейшем потребуется заполнять их заново.',
+					'method' => 'post',
+				],
+				'style' => 'margin-top: 10px;'
+			]) ?>
+		</div>
+
+		<div class="col-lg-2">
+		
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div>
 	
 	<?php
 	echo ExportMenu::widget([
@@ -67,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
+		//'filterModel' => $searchModel,
 		'pjax' => true,
 		'id' => 'switchboard_table',
 		'formatter' => [

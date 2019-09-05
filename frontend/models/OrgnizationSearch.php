@@ -61,12 +61,9 @@ class OrgnizationSearch extends Organization
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'org_name', $this->org_name])
-            ->andFilterWhere(['like', 'org_full_name', $this->org_full_name])
-            ->andFilterWhere(['like', 'INN', $this->INN])
-			->andFilterWhere(['like', 'org_address', $this->org_address])
-            ->andFilterWhere(['like', 'Comment', $this->Comment])
-			->andFilterWhere(['like', 'photo', $this->photo]);
+        if (isset($params['search']))
+            $query->andWhere(['or',['like', 'org_name', $params['search']], ['like', 'Comment', $params['search']], 
+		['like', 'org_full_name', $params['search']], ['like', 'INN', $params['search']], ['like', 'org_address', $params['search']]]);
 
         return $dataProvider;
     }

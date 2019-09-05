@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 	<div class="col-lg-5">
 	
 		<p>
-			<?= Html::a('Редактировать', ['update', 'id' => $model->case_id], ['class' => 'btn btn-primary']) ?>
+			<?= Html::a('Редактировать', ['update', 'id' => $model->case_id], ['class' => 'btn btn-primary', 'style' => 'margin-top: 10px;']) ?>
 		</p>
 	
 		<?= DetailView::widget([
@@ -118,9 +118,21 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 	</div>
 	<div class="col-lg-7">
 	
-	<p>	
-		<?= Html::a('Добавить устройство', ['devices/create', 'id' => $_SESSION['case'], 'case_num' => $model->case_num], ['class' => 'btn btn-success']) ?>
-	</p>
+	<div class="row">
+	
+		<div class="col-lg-4">
+		<?= Html::a('Добавить устройство', ['devices/create', 'id' => $_SESSION['case'], 'case_num' => $model->case_num], ['class' => 'btn btn-success', 'style' => 'margin-top: 10px;']) ?>
+		</div>
+
+		<div class="col-lg-2">
+		
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div>
 	
 	<?php
 	echo ExportMenu::widget([
@@ -148,9 +160,9 @@ $this->params['breadcrumbs'][] = 'Просмотр шкафа';
 	
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
+		//'filterModel' => $searchModel,
 		'pjax' => true,
-		'id' => 'cases_table',
+		'id' => 'devices_table',
 		'formatter' => [
 			'class' => 'yii\i18n\Formatter',
 			'nullDisplay' => ''

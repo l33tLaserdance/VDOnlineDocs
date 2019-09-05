@@ -33,7 +33,7 @@ class ContactsController extends Controller
      * Lists all Contacts models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($search = '')
     {
         $searchModel = new ContactsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -41,6 +41,7 @@ class ContactsController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

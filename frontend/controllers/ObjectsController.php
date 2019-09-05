@@ -38,7 +38,7 @@ class ObjectsController extends Controller
      * Lists all Objects models.
      * @return mixed
      */
-    public function actionIndex($id, $org_full_name)
+    public function actionIndex($id, $org_full_name, $search = '')
     {
         $searchModel = new ObjectsSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams, $org_id);
@@ -53,6 +53,7 @@ class ObjectsController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

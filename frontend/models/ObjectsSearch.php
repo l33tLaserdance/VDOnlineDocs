@@ -72,11 +72,9 @@ class ObjectsSearch extends Objects
             'org_id' => $this->org_id,
         ]);
 
-        $query->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'obj_name', $this->obj_name])
-            ->andFilterWhere(['like', 'Comment', $this->Comment])
-			->andFilterWhere(['like', 'photo', $this->photo])
-			->andFilterWhere(['like', 'map', $this->map]);
+        if (isset($params['search']))
+            $query->andWhere(['or',['like', 'obj_id', $params['search']],['like', 'address', $params['search']], ['like', 'obj_name', $params['search']], 
+		['like', 'Comment', $params['search']]]);
 
         return $dataProvider;
     }

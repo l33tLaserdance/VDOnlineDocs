@@ -7,10 +7,140 @@ body {
 	margin-bottom: 10px;
 }
 
+@media screen and (max-width: 600px) {
+
+#cases_table > #cases_table-container > table th:nth-child(4) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table tr td:nth-child(4) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table th:nth-child(6) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table tr td:nth-child(6) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table th:nth-child(7) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table tr td:nth-child(7) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table th:nth-child(8) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table tr td:nth-child(8) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table th:nth-child(9) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table tr td:nth-child(9) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table th:nth-child(10) {
+	display: none;
+}
+
+#cases_table > #cases_table-container > table tr td:nth-child(10) {
+	display: none;
+}
+
+#obj_table > #obj_table-container > table th:nth-child(3) {
+	display: none;
+}
+
+#obj_table > #obj_table-container > table tr td:nth-child(3) {
+	display: none;
+}
+
+#org_table > #org_table-container > table th:nth-child(3) {
+	display: none;
+}
+
+#org_table > #org_table-container > table tr td:nth-child(3) {
+	display: none;
+}
+
+#org_table > #org_table-container > table th:nth-child(4) {
+	display: none;
+}
+
+#org_table > #org_table-container > table tr td:nth-child(4) {
+	display: none;
+}
+
+#org_table > #org_table-container > table th:nth-child(5) {
+	display: none;
+}
+
+#org_table > #org_table-container > table tr td:nth-child(5) {
+	display: none;
+}
+
+#devices_table > #devices_table-container > table th:nth-child(4) {
+	display: none;
+}
+
+#devices_table > #devices_table-container > table tr td:nth-child(4) {
+	display: none;
+}
+
+#devices_table > #devices_table-container > table th:nth-child(5) {
+	display: none;
+}
+
+#devices_table > #devices_table-container > table tr td:nth-child(5) {
+	display: none;
+}
+
+#switchboard_table > #switchboard_table-container > table th:nth-child(5) {
+	display: none;
+}
+
+#switchboard_table > #switchboard_table-container > table tr td:nth-child(5) {
+	display: none;
+}
+
+}
+
+.curunused {
+	display: block;
+}
+
+.attention {
+	color: red;
+	font-size: 14 px;
+}
+
+.field-devices-device_name {
+	display: none;
+}
+
+.twitter-typeahead {
+	position: fixed;
+}
+
+.red {
+	color: red;
+}
+
 .navbar-brand {
 	width: 50px;
 	height: 20px;
 	margin-top: 5px;
+	margin-left: 10px;
 	display: inline-block;
 	background-image: url(../images/logosite41.png);
 	background-position: bottom center;

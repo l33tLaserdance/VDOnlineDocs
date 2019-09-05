@@ -17,11 +17,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Добавить организацию', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+	<div class="row">
+	
+		<div class="col-lg-4">
+			<?= Html::a('Добавить организацию', ['create'], ['class' => 'btn btn-success', 'style' => 'margin-top: 10px;']) ?> 
+		</div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+		<div class="col-lg-2">
+
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div>
 	
 	<?php
 	$gridColumns = [
@@ -37,10 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
 		'columns' => $gridColumns,
 	]);
 	?>
-	
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
 		'pjax' => true,
 		'id' => 'org_table',
 		'formatter' => [
@@ -50,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'id','format'=>['integer'], 'hAlign'=>'center', 'width'=>'10px'],
+            //['attribute'=>'id','format'=>['integer'], 'hAlign'=>'center', 'width'=>'10px'],
             ['attribute'=>'org_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'200px'],
             ['attribute'=>'org_full_name',
 			'value' => function($data) {
@@ -71,6 +81,5 @@ $this->params['breadcrumbs'][] = $this->title;
 			'style' => 'word-warp: break-word;'
 		],
     ]); ?>
-
 
 </div>

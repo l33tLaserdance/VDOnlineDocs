@@ -40,7 +40,7 @@ class CasesController extends Controller
      * Lists all Cases models.
      * @return mixed
      */
-    public function actionIndex($id, $obj_name)
+    public function actionIndex($id, $obj_name, $search = '')
     {
         $searchModel = new CasesSearch();
 		
@@ -48,10 +48,12 @@ class CasesController extends Controller
 			$_SESSION['obj_name'] = $obj_name;
 			
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->pagination->pageSize = 40;
 		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 
@@ -61,9 +63,12 @@ class CasesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $search = '')
     {
 		$_SESSION['case'] = $id;
+		if (isset($_GET['altcase'])) {
+			$_SESSION['altcase'] = $_GET['altcase'];
+		}
 		
 		$searchModel = new DevicesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -76,6 +81,7 @@ class CasesController extends Controller
             'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

@@ -33,7 +33,7 @@ class SwitchboardController extends Controller
      * Lists all Switchboard models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($search = '')
     {
 		if (isset($_GET['switch_name'])) {
 			$_SESSION['switch_id'] = $_GET['id'];
@@ -49,6 +49,7 @@ class SwitchboardController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'search' => $search,
         ]);
     }
 

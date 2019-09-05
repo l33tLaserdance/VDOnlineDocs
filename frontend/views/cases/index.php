@@ -5,6 +5,8 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
+use frontend\models\Cases;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\CasesSearch */
@@ -21,11 +23,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Добавить шкаф', ['create', 'id' => $_SESSION['obj_id'], 'obj_name' => $_GET['obj_name'] ], ['class' => 'btn btn-success']) ?>
-    </p>
+	<div class="row">
+	
+		<div class="col-lg-4">
+			<?= Html::a('Добавить шкаф', ['create', 'id' => $_SESSION['obj_id'], 'obj_name' => $_GET['obj_name'] ], ['class' => 'btn btn-success', 'style' => 'margin-top: 10px;']) ?>
+		</div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+		<div class="col-lg-2">
+		
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div>
 
 	<?php
 	echo ExportMenu::widget([
@@ -89,21 +101,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'case_id',
             //'obj_id',
-            ['attribute'=>'case_num','format'=>['integer'], 'hAlign'=>'center', 'width'=>'60px'],
-            ['attribute'=>'build_num','format'=>['text'], 'hAlign'=>'center', 'width'=>'60px'],
-            ['attribute'=>'comm_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'70px'],
-            ['attribute'=>'case_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'90px'],
-            ['attribute'=>'switch_ip','format'=>['text'], 'hAlign'=>'center', 'width'=>'20px'],
-            ['attribute'=>'placement','format'=>['text'], 'hAlign'=>'left', 'width'=>'420px'],
-            ['attribute'=>'expulsion','format'=>['text'], 'hAlign'=>'left', 'width'=>'150px'],
-            ['attribute'=>'links','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px'],
+            ['attribute'=>'case_num','format'=>['integer'], 'hAlign'=>'center', 'width'=>'60px', 'filter' => false],
+            ['attribute'=>'build_num','format'=>['text'], 'hAlign'=>'center', 'width'=>'60px', 'filter' => false],
+            ['attribute'=>'comm_name',
+			'value' => function($data) {
+				return HTML::a(Html::encode($data['comm_name']), Url::to(['view', 'id' => $data['case_id'], 'case' => $_GET['obj_name'], 'case_num' => $data['case_num'], 'altcase' => $data['comm_name']]));
+			},
+			'format'=>['html'], 'hAlign'=>'center', 'width'=>'70px', 'filter' => false],
+            ['attribute'=>'case_name','format'=>['text'], 'hAlign'=>'center', 'width'=>'90px', 'filter' => false],
+            ['attribute'=>'switch_ip','format'=>['text'], 'hAlign'=>'center', 'width'=>'20px', 'filter' => false],
+            ['attribute'=>'placement','format'=>['text'], 'hAlign'=>'left', 'width'=>'420px', 'filter' => false],
+            ['attribute'=>'expulsion','format'=>['text'], 'hAlign'=>'left', 'width'=>'150px',
+				'filterType' => GridView::FILTER_DATE,
+				'filterWidgetOptions' => [
+					'type' => DatePicker::TYPE_INPUT,
+					'pluginOptions' => [
+						'format' => 'dd-mm-yyyy',
+						'autoclose' => true,
+						'todayHighlight' => true,
+					]
+				],
+			],
+            ['attribute'=>'links','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px', 'filter' => false],
             ['class' => 'kartik\grid\BooleanColumn', 'trueLabel' => 'Да', 'falseLabel' => 'Нет', 'attribute' => 'order', 'hAlign'=>'center', 'width'=>'10px'],
             //['attribute'=>'photo','format'=>['text'], 'hAlign'=>'left', 'width'=>'50px'],
             //'Comment:ntext',
 
             ['class' => 'yii\grid\ActionColumn',
 				'urlCreator' => function($action, $model, $key, $index) {
-					return [$action, 'id' => $model['case_id'], 'case' => $_GET['obj_name'], 'case_num' => $model['case_num']];
+					return [$action, 'id' => $model['case_id'], 'case' => $_GET['obj_name'], 'case_num' => $model['case_num'], 'altcase' => $model['comm_name']];
 				},
 				'visibleButtons' => [
 					'delete' => false,

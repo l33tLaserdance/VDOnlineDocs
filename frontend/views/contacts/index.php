@@ -20,11 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Добавить контакт', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+	<div class="row">
+	
+		<div class="col-lg-4">
+			<?= Html::a('Добавить контакт', ['create'], ['class' => 'btn btn-success', 'style' => 'margin-top: 10px;']) ?>
+		</div>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+		<div class="col-lg-2">
+		
+		</div>
+
+		<div class="col-lg-6">
+			<?php echo $this->render('_search', ['model' => $searchModel, 'search' => $search]); ?>
+		</div>
+		
+	</div>
 
 	<?php
 	echo ExportMenu::widget([
@@ -71,11 +81,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'contact_id',
             ['attribute'=>'org_id','format'=>['text'], 'value'=>'org.org_name', 'filter'=>ArrayHelper::map(Organization::find()->all(), 'id', 'org_name'),'hAlign'=>'center', 'width'=>'15%'],
-            ['attribute'=>'FIO','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%'],
-            ['attribute'=>'Phone','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%'],
-            ['attribute'=>'Email','format'=>['email'], 'hAlign'=>'center', 'width'=>'15%'],
-            ['attribute'=>'Positon','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%'],
-            ['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%'],
+            ['attribute'=>'FIO','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%', 'filter' => false],
+            ['attribute'=>'Phone','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%', 'filter' => false],
+            ['attribute'=>'Email','format'=>['email'], 'hAlign'=>'center', 'width'=>'15%', 'filter' => false],
+            ['attribute'=>'Positon','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%', 'filter' => false],
+            ['attribute'=>'Comment','format'=>['text'], 'hAlign'=>'center', 'width'=>'15%', 'filter' => false],
 
             ['class' => 'yii\grid\ActionColumn',
 				'urlCreator' => function($action, $model, $key, $index) {

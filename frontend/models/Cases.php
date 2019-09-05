@@ -49,6 +49,7 @@ class Cases extends \yii\db\ActiveRecord
             [['build_num', 'comm_name', 'case_name', 'switch_ip', 'links', 'expulsion'], 'string', 'max' => 45],
             [['placement', 'photo'], 'string', 'max' => 100],
             [['obj_id'], 'exist', 'skipOnError' => true, 'targetClass' => Objects::className(), 'targetAttribute' => ['obj_id' => 'obj_id']],
+			[['comm_name'], 'required', 'message' => 'Поле должно быть заполнено'],
         ];
     }
 
