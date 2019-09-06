@@ -81,6 +81,23 @@ use yii\helpers\Json;
 			],
 	]);?>
 	
+	<?= '<label id="lSW" class="control-label" style="display: none">Выберите модель коммутатора</label>'; ?>
+	<?=	Typeahead::widget([
+			'name' => 'model',
+			'id' => 'SW',
+			'options' => ['placeholder' => 'Начните ввод модели ...', 'style' => 'margin-bottom: 10px; display: none;'],
+			'scrollable' => true,
+			'pluginOptions' => ['highlight'=>true],
+			'dataset' => [
+				[
+					'remote' => [
+						'url' => Url::to(['devices/sw-models']) . '?q=%QUERY',
+						'wildcard' => '%QUERY'
+					]
+				]
+			],
+	]);?>
+	
 	<?= $form->field($modelups, 'manufacturer'/*, ['enableClientValidation' => false]*/)->dropDownList(
 		ArrayHelper::map(UpsManufacturers::find()->all(), 'id_man', 'upsman_name'),
 		['prompt' => 'Выберите производителя',]
@@ -154,6 +171,8 @@ $(document).ready(function() {
 			$("#UPS").css("display", "none");
 			$("#lPP").css("display", "none");
 			$("#PP").css("display", "none");
+			$("#lSW").css("display", "none");
+			$("#SW").css("display", "none");
 			$("#devices-device_name").val("");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
@@ -168,6 +187,8 @@ $(document).ready(function() {
 			$("#UPS").css("display", "block");
 			$("#lPP").css("display", "none");
 			$("#PP").css("display", "none");
+			$("#lSW").css("display", "none");
+			$("#SW").css("display", "none");
 			$(".twitter-typeahead").css("position", "relative");
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-devices-port").css("display", "none");
@@ -184,11 +205,13 @@ $(document).ready(function() {
 			$("#UPS").css("display", "none");
 			$("#lPP").css("display", "none");
 			$("#PP").css("display", "none");
+			$("#lSW").css("display", "block");
+			$("#SW").css("display", "block");
 			$("#devices-device_name").val("");
-			$(".twitter-typeahead").css("position", "fixed");
+			$(".twitter-typeahead").css("position", "relative");
 			$(".field-devices-port").css("display", "none");
 			$(".field-devices-comment").css("display", "block");
-			$(".field-devices-device_name").css("display", "block");
+			$(".field-devices-device_name").css("display", "none");
 			$(".field-devices-device_switchn").css("display", "block");
 			$(".field-devices-device_ip").css("display", "block");
 			$(".field-upsmodels-manufacturer").css("display", "none");
@@ -203,6 +226,8 @@ $(document).ready(function() {
 			$("#UPS").css("display", "none");
 			$("#lPP").css("display", "block");
 			$("#PP").css("display", "block");
+			$("#lSW").css("display", "none");
+			$("#SW").css("display", "none");
 			$(".twitter-typeahead").css("position", "relative");
 			$("#devices-device_name").val(sessionData+'-pp'+ppcount);
 			$(".field-devices-port").css("display", "none");
@@ -223,6 +248,8 @@ $(document).ready(function() {
 			$("#UPS").css("display", "none");
 			$("#lPP").css("display", "none");
 			$("#PP").css("display", "none");
+			$("#lSW").css("display", "none");
+			$("#SW").css("display", "none");
 			$(".twitter-typeahead").css("position", "relative");
 			$("#devices-device_name").val(sessionData+'-oc'+occount);
 			$(".field-devices-port").css("display", "none");
@@ -254,10 +281,32 @@ $(document).ready(function() {
 			$("#devices-device_name").val($(this).val());
 		}
 	});
+	$("#SW").blur(function() {
+		var n = $("#SW").val();
+		var str = n.match(/\"(.*)\"/);
+		var bla = str[1];
+		$.ajax({
+			url: "<?= Url::to(['devices/ports'])?>",
+			type: 'GET',
+			data: { id : bla },
+			dataType: "text",
+			success: function(data) {
+				var prts = data;
+				$("#ports-amount :contains("+prts+")").filter(function() { return $(this).text() === prts }).attr("selected", "selected");
+				n = n.replace(/\"/g, '');
+				alert(n);
+				$("#devices-device_name").val(n);
+				var p = document.getElementById("ports-amount").options.selectedIndex;
+				var txt = document.getElementById("ports-amount").options[p].text;
+				$("#devices-port").val(txt);
+			},
+			error: function () { alert('error'); }
+		});
+	});
 	$("#ports-amount").change(function() {
 		if($(this).val() !== '') {
-			var n = document.getElementById("ports-amount").options.selectedIndex;
-			var txt = document.getElementById("ports-amount").options[n].text;
+			//var n = document.getElementById("ports-amount").options.selectedIndex;
+			//var txt = document.getElementById("ports-amount").options[n].text;
 			$("#devices-port").val(txt);
 		}
 	});

@@ -29,14 +29,26 @@ $this->title = 'VDTech Online Docs';
 	</div>
 	<div class="row">
 		<div class="col-lg-6">
-			<label class="control-label" for="ibps">Список моделей ИБП, для проверок</label>
+			<label class="control-label" for="ibps">Список моделей ИБП</label>
 			<p class="attention"></p>
 			<p><a id="ibps" class="btn btn-lg btn-info curunused" href="/upsmodels">Модели ИБП</a></p>
 		</div>
 		<div class="col-lg-6">
-			<label class="control-label" for="ibpman">Список производителей ИБП, тоже</label>
+			<label class="control-label" for="ibpman">Список производителей ИБП</label>
 			<p class="attention"></p>
 			<p><a id="ibpman" class="btn btn-lg btn-info curunused" href="/upsmanufacturers">Производители ИБП</a></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<label class="control-label" for="switches">Список моделей коммутаторов</label>
+			<p class="attention"></p>
+			<p><a id="switches" class="btn btn-lg btn-info curunused" href="/switchmodels">Модели коммутаторов</a></p>
+		</div>
+		<div class="col-lg-6">
+			<label class="control-label" for="swman">Список производителей коммутаторов</label>
+			<p class="attention"></p>
+			<p><a id="swman" class="btn btn-lg btn-info curunused" href="/switchmanufacturers">Производители коммутаторов</a></p>
 		</div>
 	</div>
 </div>

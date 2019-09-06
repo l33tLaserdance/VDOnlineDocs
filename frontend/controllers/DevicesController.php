@@ -20,6 +20,8 @@ use frontend\models\Patches;
 use frontend\models\PatchesSearch;
 use frontend\models\Ports;
 use frontend\models\PatchTypes;
+use frontend\models\SwitchModels;
+use frontend\models\SwitchmodelsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -323,6 +325,26 @@ class DevicesController extends Controller
 		echo Json::encode($out);
 	}
 	
+	public function actionSwModels($q = null) {
+		$q = preg_replace('/\"/', '\"', $q);
+		
+		$query = SwitchModels::find();
+		
+		$query->select(["concat(swman_name, ' \"', model, '\"') as all"])
+			->from(['switch_models', 'switch_manufacturers'])
+			->where('concat(swman_name, " \"", model, "\"") LIKE "%'. $q .'%"')
+			->andWhere('switch_models.manufacturer = switch_manufacturers.id_swman')
+			->orderBy('all');
+			
+		$command = $query->createCommand();
+		$data = $command->QueryAll();
+		$out = [];
+		foreach ($data as $d) {
+			$out[] = $d['all'];
+		}
+		echo Json::encode($out);
+	}
+	
 	protected function Countpp() {
 		$countpp = (new Query())
 			->select(['COUNT(*)'])
@@ -342,6 +364,18 @@ class DevicesController extends Controller
 			->andWhere(['device_type' => 4])
 			->all();
 		$result = $countoc[0]['COUNT(*)'] + 1;
+		return $result;
+	}
+	
+	public function actionPorts($id) {
+		//$id = json_decode($id);
+		
+		$ports = (new Query())
+			->select('ports')
+			->from('switch_models')
+			->where(['model' => $id])
+			->all();
+		$result = $ports[0]['ports'];
 		return $result;
 	}
 }

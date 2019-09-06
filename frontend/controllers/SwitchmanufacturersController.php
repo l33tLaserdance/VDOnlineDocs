@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\UpsManufacturers;
-use frontend\models\UpsmanufacturersSearch;
+use frontend\models\SwitchManufacturers;
+use frontend\models\SwitchmanufacturersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UpsmanufacturersController implements the CRUD actions for UpsManufacturers model.
+ * SwitchmanufacturersController implements the CRUD actions for SwitchManufacturers model.
  */
-class UpsmanufacturersController extends Controller
+class SwitchmanufacturersController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class UpsmanufacturersController extends Controller
     }
 
     /**
-     * Lists all UpsManufacturers models.
+     * Lists all SwitchManufacturers models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UpsmanufacturersSearch();
+        $searchModel = new SwitchmanufacturersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class UpsmanufacturersController extends Controller
     }
 
     /**
-     * Displays a single UpsManufacturers model.
+     * Displays a single SwitchManufacturers model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class UpsmanufacturersController extends Controller
     }
 
     /**
-     * Creates a new UpsManufacturers model.
+     * Creates a new SwitchManufacturers model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new UpsManufacturers();
+        $model = new SwitchManufacturers();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_man]);
+            return $this->redirect(['view', 'id' => $model->id_swman]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class UpsmanufacturersController extends Controller
     }
 
     /**
-     * Updates an existing UpsManufacturers model.
+     * Updates an existing SwitchManufacturers model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class UpsmanufacturersController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_man]);
+            return $this->redirect(['view', 'id' => $model->id_swman]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class UpsmanufacturersController extends Controller
     }
 
     /**
-     * Deletes an existing UpsManufacturers model.
+     * Deletes an existing SwitchManufacturers model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,25 +104,24 @@ class UpsmanufacturersController extends Controller
      */
     public function actionDelete($id)
     {
-		if ($id == 4) {
+		if ($id == 9) {
 			return $this->redirect(['index']);
 		}
-		
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the UpsManufacturers model based on its primary key value.
+     * Finds the SwitchManufacturers model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return UpsManufacturers the loaded model
+     * @return SwitchManufacturers the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = UpsManufacturers::findOne($id)) !== null) {
+        if (($model = SwitchManufacturers::findOne($id)) !== null) {
             return $model;
         }
 

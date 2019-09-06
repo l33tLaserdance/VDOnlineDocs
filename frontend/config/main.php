@@ -12,7 +12,7 @@ return [
 	'timeZone' => 'Europe/Moscow',
 	'name' => 'VDTECH Online Docs by Evgeniy Kiselevskiy',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'debug'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
@@ -63,7 +63,11 @@ return [
         
     ],
 	'modules' => [
-		'gridview' => ['class' => 'kartik\grid\Module']
+		'gridview' => ['class' => 'kartik\grid\Module'],
+		'debug' => [
+            'class' => 'yii\debug\Module',
+            'allowedIPs' => ['10.201.1.99']
+        ]
 	],
     'params' => $params,
 ];
