@@ -86,6 +86,7 @@ class DevicesController extends Controller
 		$modelups = new UpsModels();
 		$modelports = new Ports();
 		$modelpptypes = new PatchTypes();
+		$modelsw = new SwitchModels();
 		
 		$countpp = $this->Countpp();
 		$countoc = $this->Countoc();
@@ -128,6 +129,16 @@ class DevicesController extends Controller
 				$model2->port = 1;
 				$model2->save();
 				
+				$modelsw->load(Yii::$app->getRequest()->post());
+				
+				$modelnewsw = new SwitchModels();
+				
+				$modelnewsw->manufacturer = $modelsw->manufacturer;
+				$modelnewsw->model = $modelsw->model;
+				$modelnewsw->ports = $model->port;
+				$modelnewsw->PoE = $modelsw->PoE;
+				$modelnewsw->save();
+				
 				$model->device_link = '<a href="/switchboard/index?id='.$model->device_id.'&switch_name='.$model->device_name.'&name='.$model->device_switchn.'&ip='.$model->device_ip.'.">Ссылка</a>';
 				$model->save();
 				
@@ -140,8 +151,7 @@ class DevicesController extends Controller
 						$model2->switch_model = $model->device_name;
 						$model2->port = $i;
 						$model2->save();
-					}
-						
+					}			
 				}
 			}
 			
@@ -214,6 +224,7 @@ class DevicesController extends Controller
 			'countoc' => $countoc,
 			'modelports' => $modelports,
 			'modelpptypes' => $modelpptypes,
+			'modelsw' => $modelsw,
         ]);
     }
 

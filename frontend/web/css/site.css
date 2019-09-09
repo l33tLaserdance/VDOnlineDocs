@@ -128,10 +128,6 @@ body {
 	display: none;
 }
 
-.twitter-typeahead {
-	position: fixed;
-}
-
 .red {
 	color: red;
 }

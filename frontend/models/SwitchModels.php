@@ -33,6 +33,31 @@ class SwitchModels extends \yii\db\ActiveRecord
         return [
             [['manufacturer', 'ports'], 'integer'],
             [['model'], 'string', 'max' => 50],
+			['manufacturer', 'required', 'whenClient' => "function (attribute, value) {
+					if ($('#SW').val() == ' \"Другое\"') {
+						return $('#SW').val() == ' \"Другое\"';
+					}
+					if ($('#SW').val() == '\"Другое\"') {
+						return $('#SW').val() == '\"Другое\"';
+					}
+					if ($('#SW').val() == 'Другое') {
+						return $('#SW').val() == 'Другое';
+					}
+				}"
+			],
+			['model', 'required', 'whenClient' => "function (attribute, value) {
+					if ($('#SW').val() == ' \"Другое\"') {
+						return $('#SW').val() == ' \"Другое\"';
+					}
+					if ($('#SW').val() == '\"Другое\"') {
+						return $('#SW').val() == '\"Другое\"';
+					}
+					if ($('#SW').val() == 'Другое') {
+						return $('#SW').val() == 'Другое';
+					}
+				}"
+			],
+			[['model'], 'unique', 'message' => 'Такая модель уже существует'],
             [['PoE'], 'string', 'max' => 5],
             [['manufacturer'], 'exist', 'skipOnError' => true, 'targetClass' => SwitchManufacturers::className(), 'targetAttribute' => ['manufacturer' => 'id_swman']],
         ];

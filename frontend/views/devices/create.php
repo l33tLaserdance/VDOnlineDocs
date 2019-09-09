@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = 'Добавление устройства';
 		'countoc' => $countoc,
 		'modelports' => $modelports,
 		'modelpptypes' => $modelpptypes,
+		'modelsw' => $modelsw,
     ]) ?>
 
 </div>

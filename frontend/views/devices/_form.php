@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use frontend\models\DeviceTypes;
 use frontend\models\UpsManufacturers;
+use frontend\models\SwitchManufacturers;
 use frontend\models\Ports;
 use kartik\widgets\Typeahead;
 use yii\helpers\Url;
@@ -105,6 +106,18 @@ use yii\helpers\Json;
 	
 	<?= $form->field($modelups, 'model')->textInput()->label('Модель') ?>
 	
+	<?= $form->field($modelsw, 'manufacturer'/*, ['enableClientValidation' => false]*/)->dropDownList(
+		ArrayHelper::map(SwitchManufacturers::find()->all(), 'id_swman', 'swman_name'),
+		['prompt' => 'Выберите производителя',]
+	)->label('Производитель коммутатора <span class="red">*</span>') ?>
+	
+	<?= $form->field($modelsw, 'model')->textInput()->label('Модель') ?>
+	
+	<?= $form->field($modelsw, 'PoE')->dropDownList([
+		'0' => 'Нет',
+		'1' => 'Да',
+	])->label('PoE'); ?>
+	
     <?= $form->field($model, 'device_name')->textInput(['maxlength' => true/*, 'style' => 'display: none'*/])->label('Наименование устройства <span class="red">*</span>'/*, ['style' => 'display: none']*/) ?>
 
     <?= $form->field($model, 'port')->textInput()->label('Количество портов <span class="red">*</span>') ?>
@@ -153,6 +166,9 @@ $(".field-devices-device_switchn").css("display", "none");
 $(".field-devices-device_ip").css("display", "none");
 $(".field-upsmodels-manufacturer").css("display", "none");
 $(".field-upsmodels-model").css("display", "none");
+$(".field-switchmodels-manufacturer").css("display", "none");
+$(".field-switchmodels-model").css("display", "none");
+$(".field-switchmodels-poe").css("display", "none");
 $(".field-ports-amount").css("display", "none");
 $(".field-patchtypes-type").css("display", "none");
 
@@ -162,6 +178,7 @@ $(document).ready(function() {
 	}
 	$('#devices-device_type').change(function() {
 		if($(this).val() === '') {
+			$(".twitter-typeahead").css("position", "relative");
 			$(".field-devices-port").css("display", "none");
 			$(".field-devices-comment").css("display", "none");
 			$(".field-devices-device_name").css("display", "none");
@@ -176,12 +193,16 @@ $(document).ready(function() {
 			$("#devices-device_name").val("");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
+			$(".field-switchmodels-manufacturer").css("display", "none");
+			$(".field-switchmodels-model").css("display", "none");
+			$(".field-switchmodels-poe").css("display", "none");
 			$(".field-ports-amount").css("display", "none");
 			$(".field-patchtypes-type").css("display", "none");
 			$("#devices-port").val("");
 			$("#ports-amount").val("");
 		}
 		if($(this).val() === '1') {
+			//$("#p0:nth-child(2) > .tt-scrollable-menu").css("display", "block");
 			$(".field-devices-comment").css("display", "block");
 			$("#lUPS").css("display", "block");
 			$("#UPS").css("display", "block");
@@ -192,6 +213,9 @@ $(document).ready(function() {
 			$(".twitter-typeahead").css("position", "relative");
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-devices-port").css("display", "none");
+			$(".field-switchmodels-manufacturer").css("display", "none");
+			$(".field-switchmodels-model").css("display", "none");
+			$(".field-switchmodels-poe").css("display", "none");
 			$("#devices-device_name").val("");
 			$(".field-devices-device_switchn").css("display", "none");
 			$(".field-devices-device_ip").css("display", "none");
@@ -214,6 +238,9 @@ $(document).ready(function() {
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-devices-device_switchn").css("display", "block");
 			$(".field-devices-device_ip").css("display", "block");
+			$(".field-switchmodels-manufacturer").css("display", "none");
+			$(".field-switchmodels-model").css("display", "none");
+			$(".field-switchmodels-poe").css("display", "none");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
 			$(".field-ports-amount").css("display", "block");
@@ -237,6 +264,9 @@ $(document).ready(function() {
 			$(".field-devices-device_ip").css("display", "none");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
+			$(".field-switchmodels-manufacturer").css("display", "none");
+			$(".field-switchmodels-model").css("display", "none");
+			$(".field-switchmodels-poe").css("display", "none");
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-ports-amount").css("display", "block");
 			$(".field-patchtypes-type").css("display", "none");
@@ -259,6 +289,9 @@ $(document).ready(function() {
 			$(".field-devices-device_ip").css("display", "none");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
+			$(".field-switchmodels-manufacturer").css("display", "none");
+			$(".field-switchmodels-model").css("display", "none");
+			$(".field-switchmodels-poe").css("display", "none");
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-ports-amount").css("display", "block");
 			$(".field-patchtypes-type").css("display", "none");
@@ -271,42 +304,67 @@ $(document).ready(function() {
 			$(".field-upsmodels-manufacturer").css("display", "block");
 			$(".field-upsmodels-model").css("display", "block");
 		} else {
+			$(".field-upsmodels-manufacturer").css("display", "none");
+			$(".field-upsmodels-model").css("display", "none");
 			$("#devices-device_name").val($(this).val());
+			$("#devices-port").val(0);
 		}
 	});
 	$("#PP").blur(function() {
 		if($(this).val() === ' Другое' || $(this).val() === 'Другое') {
 			$(".field-patchtypes-type").css("display", "block");
 		} else {
+			$(".field-patchtypes-type").css("display", "none");
 			$("#devices-device_name").val($(this).val());
 		}
 	});
 	$("#SW").blur(function() {
-		var n = $("#SW").val();
-		var str = n.match(/\"(.*)\"/);
-		var bla = str[1];
-		$.ajax({
-			url: "<?= Url::to(['devices/ports'])?>",
-			type: 'GET',
-			data: { id : bla },
-			dataType: "text",
-			success: function(data) {
-				var prts = data;
-				$("#ports-amount :contains("+prts+")").filter(function() { return $(this).text() === prts }).attr("selected", "selected");
-				n = n.replace(/\"/g, '');
-				alert(n);
-				$("#devices-device_name").val(n);
-				var p = document.getElementById("ports-amount").options.selectedIndex;
-				var txt = document.getElementById("ports-amount").options[p].text;
-				$("#devices-port").val(txt);
-			},
-			error: function () { alert('error'); }
-		});
+		if($(this).val() === ' "Другое"' || $(this).val() === '"Другое"' || $(this).val() === 'Другое') {
+			$(".field-switchmodels-manufacturer").css("display", "block");
+			$(".field-switchmodels-model").css("display", "block");
+			$(".field-switchmodels-poe").css("display", "block");
+		} else {
+			$(".field-switchmodels-manufacturer").css("display", "none");
+			$(".field-switchmodels-model").css("display", "none");
+			$(".field-switchmodels-poe").css("display", "none");
+			if(typeof(n) != "undefined" && variable !== null) {
+			var n = $("#SW").val();
+			} else {
+				n = $("#SW").val();
+			}
+			if(typeof(str) != "undefined" && variable !== null) {
+				var str = n.match(/\"(.*)\"/);
+			} else {
+				str = n.match(/\"(.*)\"/);
+			}
+			if(typeof(bla) != "undefined" && variable !== null) {
+				var bla = str[1];
+			} else {
+				bla = str[1];;
+			}
+			$("option:selected").removeAttr("selected");
+			$.ajax({
+				url: "<?= Url::to(['devices/ports'])?>",
+				type: 'GET',
+				data: { id : bla },
+				dataType: "text",
+				success: function(data) {
+					var prts = data;
+					$("#ports-amount :contains("+prts+")").filter(function() { return $(this).text() === prts }).attr("selected", "selected");
+					n = n.replace(/\"/g, '');
+					$("#devices-device_name").val(n);
+					var p = document.getElementById("ports-amount").options.selectedIndex;
+					var txt = document.getElementById("ports-amount").options[p].text;
+					$("#devices-port").val(txt);
+				},
+				error: function () { alert('error'); }
+			});
+		}
 	});
 	$("#ports-amount").change(function() {
 		if($(this).val() !== '') {
-			//var n = document.getElementById("ports-amount").options.selectedIndex;
-			//var txt = document.getElementById("ports-amount").options[n].text;
+			var n = document.getElementById("ports-amount").options.selectedIndex;
+			var txt = document.getElementById("ports-amount").options[n].text;
 			$("#devices-port").val(txt);
 		}
 	});
@@ -322,6 +380,11 @@ $(document).ready(function() {
 			var loc = txt + ' ' + $('#upsmodels-model').val();
 			$("#UPS").val(loc);
 			$("#devices-device_name").val(loc);
+		}
+	});
+	$("#switchmodels-model").focusout(function() {
+		if($(this).val() != '') {
+			$("#devices-device_name").val($(this).val());
 		}
 	});
 	$("#upsmodels-model").focusout(function() {
