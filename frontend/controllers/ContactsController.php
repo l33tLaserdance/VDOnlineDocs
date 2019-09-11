@@ -68,7 +68,8 @@ class ContactsController extends Controller
         $model = new Contacts();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->contact_id, 'org' => $model->org_id]);
+			Yii::$app->session->setFlash('success', 'Контактное лицо '.$model->FIO.' добавлено.');
+            return $this->redirect(['organization/view', 'id' => $_SESSION['org_id']]);
         }
 
         return $this->render('create', [
@@ -88,7 +89,8 @@ class ContactsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $_SESSION['org_id'], 'org' => $model->org_id]);
+			Yii::$app->session->setFlash('success', 'Данные контактного лица '.$model->FIO.' изменены.');
+            return $this->redirect(['view', 'id' => $model->contact_id, 'org' => $model->org_id]);
         }
 
         return $this->render('update', [

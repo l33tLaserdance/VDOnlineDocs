@@ -37,7 +37,9 @@ class Contacts extends \yii\db\ActiveRecord
             [['Comment'], 'string'],
             [['FIO', 'Positon'], 'string', 'max' => 100],
             [['Phone'], 'string', 'max' => 30],
+			[['Phone'], 'match', 'pattern' => '/^\+7\s\([0-9]{3}\)\s[0-9]{3}\-[0-9]{2}\-[0-9]{2}$/', 'message' => 'Телефон указан некорректно'],
             [['Email'], 'string', 'max' => 255],
+			[['Email'], 'email', 'message' => 'Введите корректный email.'],
             [['org_id'], 'exist', 'skipOnError' => true, 'targetClass' => Organization::className(), 'targetAttribute' => ['org_id' => 'id']],
 			[['org_id'], 'required', 'message' => 'Выберите организацию'],
         ];

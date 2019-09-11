@@ -115,8 +115,12 @@ body {
 
 }
 
+.lfcurunused {
+	display: none;
+}
+
 .curunused {
-	display: block;
+	display: none;
 }
 
 .attention {

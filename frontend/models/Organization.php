@@ -37,7 +37,9 @@ class Organization extends \yii\db\ActiveRecord
             [['Comment'], 'string'],
 			[['file'], 'file'],
             [['org_name', 'org_full_name', 'org_address', 'photo'], 'string', 'max' => 100],
-            [['INN'], 'string', 'max' => 12],
+			[['org_name', 'org_full_name', 'INN'], 'unique'],
+            [['INN'], 'integer', 'message' => 'ИНН не должен содержать символы и буквы.'],
+			[['INN'], 'string', 'max' => 12, 'message' => 'ИНН не должен превышать 12 символов'],
         ];
     }
 

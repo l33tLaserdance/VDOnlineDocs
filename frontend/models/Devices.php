@@ -42,6 +42,7 @@ class Devices extends \yii\db\ActiveRecord
             [['device_type'], 'exist', 'skipOnError' => true, 'targetClass' => DeviceTypes::className(), 'targetAttribute' => ['device_type' => 'dt_id']],
 			[['device_type'], 'required', 'message' => 'Устройство не выбрано.'],
 			[['device_name'], 'required', 'message' => 'Наименование не указано.'],
+			[['sw_poe', 'sw_control'], 'string', 'max' => 2],
         ];
     }
 
@@ -60,6 +61,8 @@ class Devices extends \yii\db\ActiveRecord
             'Comment' => 'Комментарий',
 			'device_switchn' => 'Название коммутатора',
 			'device_ip' => 'IP адрес коммутатора',
+			'sw_poe' => 'PoE',
+			'sw_control' => 'Управление',
         ];
     }
 

@@ -21,7 +21,7 @@ if (!isset($_SESSION['org_full_name'])) {
 }
 ?>
 <div class="organization-view">
-
+	
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

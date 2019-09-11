@@ -7,13 +7,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Вход';
+$this->title = 'Авторизация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Для входа заполните поля, приведённые ниже:</p>
+    <p>Для авторизации заполните поля приведённые ниже:</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить') ?>
 
-                <div style="color:#999;margin:1em 0">
+                <!--<div style="color:#999;margin:1em 0">
                     Если вы забыли пароль, его можно <?= Html::a('сбросить', ['site/request-password-reset']) ?>.
                     <br>
                     Новая почта для подтверждения. <?= Html::a('Выслать заново', ['site/resend-verification-email']) ?>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <?= Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

@@ -8,6 +8,7 @@ use frontend\models\SwitchboardSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Query;
 
 /**
  * SwitchboardController implements the CRUD actions for Switchboard model.
@@ -45,11 +46,25 @@ class SwitchboardController extends Controller
         $searchModel = new SwitchboardSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->pagination->pageSize = 24;
+		
+		$poe = (new Query())
+			->select(['sw_poe'])
+			->from(['devices'])
+			->where(['device_id' => $_SESSION['switch_id']])
+			->all();
 
+		$cont = (new Query())
+			->select(['sw_control'])
+			->from(['devices'])
+			->where(['device_id' => $_SESSION['switch_id']])
+			->all();
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
 			'search' => $search,
+			'poe' => $poe[0]['sw_poe'],
+			'control' => $cont[0]['sw_control'],
         ]);
     }
 

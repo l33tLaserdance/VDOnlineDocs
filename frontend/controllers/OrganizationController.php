@@ -161,9 +161,10 @@ class OrganizationController extends Controller
 				
 				$model->photo = '/uploads/'.$model->id.'/'.$imageName.'.'.$model->file->extension;
 				$model->save();
+				Yii::$app->session->setFlash('success', 'Организация "'.$model->org_full_name.'" успешно создана.');
 			}
 			
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [

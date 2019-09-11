@@ -21,7 +21,20 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="switchboard-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-	<h2><?= 'Наименование: '.$_SESSION['name'].', IP-адрес: '.$_SESSION['ip'] ?></h2>
+	<h2><?php echo 'Наименование: '.$_SESSION['name'].', IP-адрес: '.$_SESSION['ip'];
+		if ($control == 0) {
+			echo ' <span class="label label-danger">Неуправляемый</span>';
+		}
+		if ($control == 1) {
+			echo ' <span class="label label-success">Управляемый</span>';
+		}
+		if ($poe == 0) {
+			echo ' <span class="label label-danger">без PoE</span>';
+		}
+		if ($poe == 1) {
+			echo ' <span class="label label-success">с PoE</span>';
+		}
+	?></h2>
 	
     <div class="row">
 	

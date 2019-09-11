@@ -35,6 +35,10 @@ $this->params['breadcrumbs'][] = $model->device_name;
 
     <?= DetailView::widget([
         'model' => $model,
+		'formatter' => [
+			'class' => 'yii\i18n\Formatter',
+			'nullDisplay' => ''
+		],
         'attributes' => [
             //'device_id',
             //'case_id',
@@ -42,7 +46,7 @@ $this->params['breadcrumbs'][] = $model->device_name;
 				'attribute' => 'device_type',
 				//'label' => 'Линки:',
 				'displayOnly' => true,
-				'valueColOptions' => ['style' => 'width: 200px'],
+				'valueColOptions' => ['style' => 'width: 30%'],
 				'value' => function($model) {
 					if ($model->device_type == 1) {
 						return 'ИБП';
@@ -61,6 +65,22 @@ $this->params['breadcrumbs'][] = $model->device_name;
             'device_name',
             'device_link',
             'port',
+			[
+				'attribute' => 'sw_poe',
+				//'label' => 'Линки:',
+				'displayOnly' => true,
+				'format' => 'raw',
+				'valueColOptions' => ['style' => 'width: 30%'],
+				'value' => $model->sw_poe ? '<span class="label label-success">Да</span>' : '<span class="label label-danger">Нет</span>',
+			],
+			[
+				'attribute' => 'sw_control',
+				//'label' => 'Линки:',
+				'displayOnly' => true,
+				'format' => 'raw',
+				'valueColOptions' => ['style' => 'width: 30%'],
+				'value' => $model->sw_control ? '<span class="label label-success">Управляемый</span>' : '<span class="label label-danger">Неуправляемый</span>',
+			],
             'Comment:ntext',
         ],
     ]) ?>

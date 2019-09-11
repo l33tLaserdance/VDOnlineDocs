@@ -18,7 +18,7 @@ class SwitchmodelsSearch extends SwitchModels
     {
         return [
             [['id_switchmod', 'manufacturer', 'ports'], 'integer'],
-            [['model', 'PoE'], 'safe'],
+            [['model', 'PoE', 'control'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class SwitchmodelsSearch extends SwitchModels
         ]);
 
         $query->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'PoE', $this->PoE]);
+            ->andFilterWhere(['like', 'PoE', $this->PoE])
+			->andFilterWhere(['like', 'control', $this->control]);
 
         return $dataProvider;
     }

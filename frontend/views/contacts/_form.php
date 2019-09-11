@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use frontend\models\Organization;
+use yii\widgets\MaskedInput;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Contacts */
@@ -21,7 +22,7 @@ use frontend\models\Organization;
 
     <?= $form->field($model, 'FIO')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Phone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'Phone')->widget(MaskedInput::className(),['mask'=>'+7 (999) 999-99-99',])->textInput(['placeholder'=>'+7 (999) 999-99-99'])->label('Контактный телефон') ?>
 
     <?= $form->field($model, 'Email')->textInput(['maxlength' => true]) ?>
 

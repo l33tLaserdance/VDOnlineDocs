@@ -137,6 +137,7 @@ class DevicesController extends Controller
 				$modelnewsw->model = $modelsw->model;
 				$modelnewsw->ports = $model->port;
 				$modelnewsw->PoE = $modelsw->PoE;
+				$modelnewsw->control = $modelsw->control;
 				$modelnewsw->save();
 				
 				$model->device_link = '<a href="/switchboard/index?id='.$model->device_id.'&switch_name='.$model->device_name.'&name='.$model->device_switchn.'&ip='.$model->device_ip.'.">Ссылка</a>';
@@ -387,6 +388,30 @@ class DevicesController extends Controller
 			->where(['model' => $id])
 			->all();
 		$result = $ports[0]['ports'];
+		return $result;
+	}
+	
+	public function actionPoe($id) {
+		//$id = json_decode($id);
+		
+		$poe = (new Query())
+			->select('PoE')
+			->from('switch_models')
+			->where(['model' => $id])
+			->all();
+		$result = $poe[0]['PoE'];
+		return $result;
+	}
+	
+	public function actionControl($id) {
+		//$id = json_decode($id);
+		
+		$ctrl = (new Query())
+			->select('control')
+			->from('switch_models')
+			->where(['model' => $id])
+			->all();
+		$result = $ctrl[0]['control'];
 		return $result;
 	}
 }

@@ -58,7 +58,30 @@ class SwitchModels extends \yii\db\ActiveRecord
 				}"
 			],
 			[['model'], 'unique', 'message' => 'Такая модель уже существует'],
-            [['PoE'], 'string', 'max' => 5],
+            ['PoE', 'string', 'max' => 5, 'whenClient' => "function (attribute, value) {
+					if ($('#SW').val() == ' \"Другое\"') {
+						return $('#SW').val() == ' \"Другое\"';
+					}
+					if ($('#SW').val() == '\"Другое\"') {
+						return $('#SW').val() == '\"Другое\"';
+					}
+					if ($('#SW').val() == 'Другое') {
+						return $('#SW').val() == 'Другое';
+					}
+				}"
+			],
+			['control', 'string', 'max' => 5, 'whenClient' => "function (attribute, value) {
+					if ($('#SW').val() == ' \"Другое\"') {
+						return $('#SW').val() == ' \"Другое\"';
+					}
+					if ($('#SW').val() == '\"Другое\"') {
+						return $('#SW').val() == '\"Другое\"';
+					}
+					if ($('#SW').val() == 'Другое') {
+						return $('#SW').val() == 'Другое';
+					}
+				}"
+			],
             [['manufacturer'], 'exist', 'skipOnError' => true, 'targetClass' => SwitchManufacturers::className(), 'targetAttribute' => ['manufacturer' => 'id_swman']],
         ];
     }
@@ -74,6 +97,7 @@ class SwitchModels extends \yii\db\ActiveRecord
             'model' => 'Модель',
             'ports' => 'Количество портов',
             'PoE' => 'PoE',
+			'control' => 'Управление',
         ];
     }
 

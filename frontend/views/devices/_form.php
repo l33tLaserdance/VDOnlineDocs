@@ -38,6 +38,16 @@ use yii\helpers\Json;
 	
 	<?php if(isset($update)) { ?>
 	
+	<?= $form->field($model, 'sw_poe')->dropDownList([
+		'0' => 'Нет',
+		'1' => 'Да',
+	])->label('PoE') ?>
+	
+	<?= $form->field($model, 'sw_control')->dropDownList([
+		'0' => 'Неуправляемый',
+		'1' => 'Управляемый',
+	])->label('Управление') ?>
+	
 	<?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 	
 	<?php } else { ?>
@@ -118,6 +128,11 @@ use yii\helpers\Json;
 		'1' => 'Да',
 	])->label('PoE'); ?>
 	
+	<?= $form->field($modelsw, 'control')->dropDownList([
+		'0' => 'Неуправляемый',
+		'1' => 'Управляемый',
+	])->label('Управление') ?>
+	
     <?= $form->field($model, 'device_name')->textInput(['maxlength' => true/*, 'style' => 'display: none'*/])->label('Наименование устройства <span class="red">*</span>'/*, ['style' => 'display: none']*/) ?>
 
     <?= $form->field($model, 'port')->textInput()->label('Количество портов <span class="red">*</span>') ?>
@@ -138,6 +153,16 @@ use yii\helpers\Json;
                                                         'autoGroup' => true,
                                                     ],
                                                 ])->label('IP-адрес коммутатора <span class="red">*</span>') ?>
+												
+	<?= $form->field($model, 'sw_poe')->dropDownList([
+		'0' => 'Нет',
+		'1' => 'Да',
+	])->label('PoE') ?>
+	
+	<?= $form->field($model, 'sw_control')->dropDownList([
+		'0' => 'Неуправляемый',
+		'1' => 'Управляемый',
+	])->label('Управление') ?>
 
     <?= $form->field($model, 'Comment')->textarea(['rows' => 6]) ?>
 	
@@ -164,17 +189,22 @@ $(".field-devices-comment").css("display", "none");
 $(".field-devices-device_name").css("display", "none");
 $(".field-devices-device_switchn").css("display", "none");
 $(".field-devices-device_ip").css("display", "none");
+$(".field-devices-sw_poe").css("display", "none");
+$(".field-devices-sw_control").css("display", "none");
 $(".field-upsmodels-manufacturer").css("display", "none");
 $(".field-upsmodels-model").css("display", "none");
 $(".field-switchmodels-manufacturer").css("display", "none");
 $(".field-switchmodels-model").css("display", "none");
 $(".field-switchmodels-poe").css("display", "none");
+$(".field-switchmodels-control").css("display", "none");
 $(".field-ports-amount").css("display", "none");
 $(".field-patchtypes-type").css("display", "none");
 
 $(document).ready(function() {
 	if(upd === "1") {
 		$(".field-devices-comment").css("display", "block");
+		$(".field-devices-sw_poe").css("display", "block");
+		$(".field-devices-sw_control").css("display", "block");
 	}
 	$('#devices-device_type').change(function() {
 		if($(this).val() === '') {
@@ -184,6 +214,8 @@ $(document).ready(function() {
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-devices-device_switchn").css("display", "none");
 			$(".field-devices-device_ip").css("display", "none");
+			$(".field-devices-sw_poe").css("display", "none");
+			$(".field-devices-sw_control").css("display", "none");
 			$("#lUPS").css("display", "none");
 			$("#UPS").css("display", "none");
 			$("#lPP").css("display", "none");
@@ -196,6 +228,7 @@ $(document).ready(function() {
 			$(".field-switchmodels-manufacturer").css("display", "none");
 			$(".field-switchmodels-model").css("display", "none");
 			$(".field-switchmodels-poe").css("display", "none");
+			$(".field-switchmodels-control").css("display", "none");
 			$(".field-ports-amount").css("display", "none");
 			$(".field-patchtypes-type").css("display", "none");
 			$("#devices-port").val("");
@@ -216,6 +249,9 @@ $(document).ready(function() {
 			$(".field-switchmodels-manufacturer").css("display", "none");
 			$(".field-switchmodels-model").css("display", "none");
 			$(".field-switchmodels-poe").css("display", "none");
+			$(".field-switchmodels-control").css("display", "none");
+			$(".field-devices-sw_poe").css("display", "none");
+			$(".field-devices-sw_control").css("display", "none");
 			$("#devices-device_name").val("");
 			$(".field-devices-device_switchn").css("display", "none");
 			$(".field-devices-device_ip").css("display", "none");
@@ -238,9 +274,12 @@ $(document).ready(function() {
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-devices-device_switchn").css("display", "block");
 			$(".field-devices-device_ip").css("display", "block");
+			$(".field-devices-sw_poe").css("display", "none");
+			$(".field-devices-sw_control").css("display", "none");
 			$(".field-switchmodels-manufacturer").css("display", "none");
 			$(".field-switchmodels-model").css("display", "none");
 			$(".field-switchmodels-poe").css("display", "none");
+			$(".field-switchmodels-control").css("display", "none");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
 			$(".field-ports-amount").css("display", "block");
@@ -262,11 +301,14 @@ $(document).ready(function() {
 			$(".field-devices-device_name").css("display", "block");
 			$(".field-devices-device_switchn").css("display", "none");
 			$(".field-devices-device_ip").css("display", "none");
+			$(".field-devices-sw_poe").css("display", "none");
+			$(".field-devices-sw_control").css("display", "none");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
 			$(".field-switchmodels-manufacturer").css("display", "none");
 			$(".field-switchmodels-model").css("display", "none");
 			$(".field-switchmodels-poe").css("display", "none");
+			$(".field-switchmodels-control").css("display", "none");
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-ports-amount").css("display", "block");
 			$(".field-patchtypes-type").css("display", "none");
@@ -287,11 +329,14 @@ $(document).ready(function() {
 			$(".field-devices-device_name").css("display", "block");
 			$(".field-devices-device_switchn").css("display", "none");
 			$(".field-devices-device_ip").css("display", "none");
+			$(".field-devices-sw_poe").css("display", "none");
+			$(".field-devices-sw_control").css("display", "none");
 			$(".field-upsmodels-manufacturer").css("display", "none");
 			$(".field-upsmodels-model").css("display", "none");
 			$(".field-switchmodels-manufacturer").css("display", "none");
 			$(".field-switchmodels-model").css("display", "none");
 			$(".field-switchmodels-poe").css("display", "none");
+			$(".field-switchmodels-control").css("display", "none");
 			$(".field-devices-device_name").css("display", "none");
 			$(".field-ports-amount").css("display", "block");
 			$(".field-patchtypes-type").css("display", "none");
@@ -323,10 +368,12 @@ $(document).ready(function() {
 			$(".field-switchmodels-manufacturer").css("display", "block");
 			$(".field-switchmodels-model").css("display", "block");
 			$(".field-switchmodels-poe").css("display", "block");
+			$(".field-switchmodels-control").css("display", "block");
 		} else {
 			$(".field-switchmodels-manufacturer").css("display", "none");
 			$(".field-switchmodels-model").css("display", "none");
 			$(".field-switchmodels-poe").css("display", "none");
+			$(".field-switchmodels-control").css("display", "none");
 			if(typeof(n) != "undefined" && variable !== null) {
 			var n = $("#SW").val();
 			} else {
@@ -356,6 +403,41 @@ $(document).ready(function() {
 					var p = document.getElementById("ports-amount").options.selectedIndex;
 					var txt = document.getElementById("ports-amount").options[p].text;
 					$("#devices-port").val(txt);
+				},
+				error: function () { alert('error'); }
+			});
+			$.ajax({
+				url: "<?= Url::to(['devices/poe'])?>",
+				type: 'GET',
+				data: { id : bla },
+				dataType: "text",
+				success: function(data) {
+					var poes = data;
+					if (poes === '1') {
+						//$("#switchmodels-poe option:selected").removeAttr("selected");
+						$("#switchmodels-poe :nth-child(2)").attr("selected", "selected");
+					} else {
+						//$("#switchmodels-poe option:selected").removeAttr("selected");
+						$("#switchmodels-poe :nth-child(1)").attr("selected", "selected");
+					}
+				},
+				error: function () { alert('error'); }
+			});
+			$.ajax({
+				url: "<?= Url::to(['devices/control'])?>",
+				type: 'GET',
+				data: { id : bla },
+				dataType: "text",
+				success: function(data) {
+					var ctrls = data;
+					alert(ctrls);
+					if (ctrls === '1') {
+						//$("#switchmodels-poe option:selected").removeAttr("selected");
+						$("#switchmodels-control :nth-child(2)").attr("selected", "selected");
+					} else {
+						//$("#switchmodels-poe option:selected").removeAttr("selected");
+						$("#switchmodels-control :nth-child(1)").attr("selected", "selected");
+					}
 				},
 				error: function () { alert('error'); }
 			});
@@ -395,6 +477,18 @@ $(document).ready(function() {
 			$("#UPS").val(loc);
 			$("#devices-device_name").val(loc);
 		}
+	});
+	$("#devices-sw_poe").focusout(function() {
+		var n = document.getElementById("devices-sw_poe").options.selectedIndex;
+		var txt = document.getElementById("devices-sw_poe").options[n].text;
+		$("#switchmodels-poe option:selected").removeAttr("selected");
+		$("#switchmodels-poe :contains("+txt+")").filter(function() { return $(this).text() === txt }).attr("selected", "selected");
+	});
+	$("#devices-sw_control").focusout(function() {
+		var n = document.getElementById("devices-sw_control").options.selectedIndex;
+		var txt = document.getElementById("devices-sw_control").options[n].text;
+		$("#switchmodels-control option:selected").removeAttr("selected");
+		$("#switchmodels-control :contains("+txt+")").filter(function() { return $(this).text() === txt }).attr("selected", "selected");
 	});
 });
 </script>

@@ -3,6 +3,26 @@ body {
     height: 100%;
 }
 
+.lfcurunused {
+	display: block;
+}
+
+.curunused {
+	display: block;
+}
+
+.navbar-brand {
+	width: 50px;
+	height: 20px;
+	margin-top: 5px;
+	margin-left: 10px;
+	display: inline-block;
+	background-image: url(/images/logosite41.png);
+	background-position: bottom center;
+	background-repeat: no-repeat;
+	background-size: 50px 20px;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;

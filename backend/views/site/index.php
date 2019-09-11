@@ -2,52 +2,51 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Onlinedocs Admin Panel';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Placeholder</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p class="lead">Onlinedocs Admin Panel</p>
+		
+		<p class="lead">Ниже находятся формы, которым пока что не нашлось применения</p>
     </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+	<div class="row">
+		<div class="col-lg-6">
+			<label class="control-label lfcurunused" for="patches">Пока не понятно, для чего?</label>
+			<p class="attention"></p>
+			<p><a id="patches" class="btn btn-lg btn-info curunused" href="patches">Патч-панели</a></p>
+		</div>
+		<div class="col-lg-6">
+			<label class="control-label lfcurunused" for="pptypes">Отредактировать патч-панели, временно.</label>
+			<p class="attention"></p>
+			<p><a id="pptypes" class="btn btn-lg btn-info curunused" href="patchtypes">Типы патч-панелей</a></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<label class="control-label lfcurunused" for="ibps">Список моделей ИБП</label>
+			<p class="attention"></p>
+			<p><a id="ibps" class="btn btn-lg btn-info curunused" href="upsmodels">Модели ИБП</a></p>
+		</div>
+		<div class="col-lg-6">
+			<label class="control-label lfcurunused" for="ibpman">Список производителей ИБП</label>
+			<p class="attention"></p>
+			<p><a id="ibpman" class="btn btn-lg btn-info curunused" href="upsmanufacturers">Производители ИБП</a></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<label class="control-label lfcurunused" for="switches">Список моделей коммутаторов</label>
+			<p class="attention"></p>
+			<p><a id="switches" class="btn btn-lg btn-info curunused" href="switchmodels">Модели коммутаторов</a></p>
+		</div>
+		<div class="col-lg-6">
+			<label class="control-label lfcurunused" for="swman">Список производителей коммутаторов</label>
+			<p class="attention"></p>
+			<p><a id="swman" class="btn btn-lg btn-info curunused" href="switchmanufacturers">Производители коммутаторов</a></p>
+		</div>
+	</div>
 </div>
