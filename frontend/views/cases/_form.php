@@ -17,7 +17,7 @@ use kartik\date\DatePicker;
 										'maxlength' => true,
 										//'disabled' => true,
 										'label' => false,
-										'value' => $_GET['id'],
+										'value' => $_SESSION['obj_id'],
 	])->label(false) ?>
 	
     <?= $form->field($model, 'case_num')->textInput() ?>
